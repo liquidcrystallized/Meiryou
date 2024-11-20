@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="LibNMeCab.IpaDicBin" Version="0.10.0" />
+      <PackageReference Include="Lucene.Net.Analysis.Kuromoji" Version="4.8.0-beta00017" />
     </ItemGroup>
 
 </Project>
