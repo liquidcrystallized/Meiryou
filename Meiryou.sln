@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meiryou", "Meiryou\Meiryou.csproj", "{66BCE212-CDAA-42D3-81A2-8D9112C3A409}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meiryou.App", "Meiryou.App\Meiryou.App.csproj", "{66BCE212-CDAA-42D3-81A2-8D9112C3A409}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meiryou.Core", "Meiryou.Core\Meiryou.Core.csproj", "{173705B7-4D40-46AF-AF62-AEAB54198014}"
 EndProject
