@@ -1,6 +1,6 @@
-namespace Meiryou.Tests;
+namespace Meiryou.Tests.Acceptance;
 
-public class Tests
+public class ReaderEndToEndTest
 {
     [SetUp]
     public void Setup()
