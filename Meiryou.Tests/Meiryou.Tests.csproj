@@ -22,4 +22,9 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Meiryou.App\Meiryou.App.csproj" />
+      <ProjectReference Include="..\Meiryou.Core\Meiryou.Core.csproj" />
+    </ItemGroup>
+
 </Project>
