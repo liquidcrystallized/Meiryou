@@ -29,7 +29,8 @@ Support for desktop (Windows/Linux) and mobile (Android).
 - CommunityToolkit.Mvvm
 - Lucene.NET
 - NMeCab
+- NSubstitute
 - xUnit
 
 ## TODO
-1. - [ ] Single text file, load text, colour text, close (Walking skeleton)
+1. - [ ] Single text file, load text, close (Walking skeleton)
