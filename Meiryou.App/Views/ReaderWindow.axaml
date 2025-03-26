@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="780"
+             x:Class="Meiryou.Views.ReaderWindow">
+   
+    <DockPanel LastChildFill="False">
+        <UniformGrid Rows="1" Columns="3" Background="Azure" DockPanel.Dock="Top">
+            <!-- TODO: Add a click handler here later -->
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center">Back</Button>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Title</TextBlock>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center">Something</Button>
+        </UniformGrid>
+        <UniformGrid Rows="1" Columns="3" Background="White" DockPanel.Dock="Bottom">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Text</TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Text</TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Text</TextBlock>
+        </UniformGrid>
+   
+        <!-- TODO: Find something that allows clickable text and customizable spacing between words to replace buttons -->
+        <WrapPanel Margin="10">
+            <Button Background="LightGray" >戦場ヶ原</Button>
+            <Button Background="Transparent">に</Button>
+            <Button Background="Transparent">は</Button>
+            <Button Background="Transparent">、</Button>
+            <Button Background="Red">およそ</Button>
+            <Button Background="Green">体重</Button>
+            <Button Background="Transparent">と</Button>
+            <Button Background="Transparent">呼べる</Button>
+            <Button Background="Transparent">よう</Button>
+            <Button Background="Transparent">な</Button>
+            <Button Background="Transparent">もの</Button>
+            <Button Background="Transparent">が</Button>
+            <Button Background="Transparent">、</Button>
+            <Button Background="Green">全く</Button>
+            <Button Background="Transparent">と</Button>
+            <Button Background="Transparent">言って</Button>
+            <Button Background="Orange">いい</Button>
+            <Button Background="DodgerBlue">ほど</Button>
+            <Button Background="Transparent">、</Button>
+            <Button Background="DodgerBlue">なかった</Button>
+            <Button Background="Green">の</Button>
+            <Button Background="Orange">である</Button>
+            <Button Background="Transparent">。</Button>
+        </WrapPanel>
+    </DockPanel>
+    
+</UserControl>
