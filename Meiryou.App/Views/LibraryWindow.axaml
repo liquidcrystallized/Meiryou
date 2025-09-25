@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="780"
+             x:Class="Meiryou.Views.LibraryWindow">
+    
+    <DockPanel LastChildFill="False">
+        <UniformGrid Rows="1" Columns="1" Background="Azure" DockPanel.Dock="Top">
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center">Load Test</Button>
+        </UniformGrid>
+    </DockPanel>
+</UserControl>
