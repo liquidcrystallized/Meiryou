@@ -27,4 +27,8 @@
       <ProjectReference Include="..\Meiryou.Core\Meiryou.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Acceptance\" />
+    </ItemGroup>
+
 </Project>
