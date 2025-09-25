@@ -1,5 +1,6 @@
 > Warning: This app is in active development. Do not use this unless you are a developer. Things WILL break and your
 > data WILL be lost. This warning will go away once the application reaches 1.0 status.
+> Contributors please refer to the develop branch.
 
 # Meiryou
 Meiryou (明瞭) is a free and open source application that helps Japanese learners acquire vocabulary by reading.
