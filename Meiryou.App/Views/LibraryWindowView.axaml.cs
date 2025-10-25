@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace Meiryou.Views;
 
-public partial class LibraryWindow : UserControl
+public partial class LibraryWindowView : UserControl
 {
-    public LibraryWindow()
+    public LibraryWindowView()
     {
         InitializeComponent();
     }

@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="780"
-             x:Class="Meiryou.Views.LibraryWindow">
+             x:Class="Meiryou.Views.LibraryWindowView">
     
     <DockPanel LastChildFill="False">
         <UniformGrid Rows="1" Columns="1" Background="Azure" DockPanel.Dock="Top">
