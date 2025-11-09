@@ -1,11 +1,10 @@
-> Warning: This app is in active development. Do not use this unless you are a developer. Things WILL break and your
+> Warning: This app is a WIP and is in active development. Do not use this unless you are a developer. Things WILL break and your
 > data WILL be lost. This warning will go away once the application reaches 1.0 status.
-> Contributors please refer to the develop branch.
 
 # Meiryou
 Meiryou (明瞭) is a free and open source application that helps Japanese learners acquire vocabulary by reading.
 
-## Features
+## Planned Features
 
 ### Offline and local first
 
@@ -25,13 +24,11 @@ the application (such as hosting a server). The UI/UX is designed with HIGs in m
 
 Support for desktop (Windows/Linux) and mobile (Android).
 
-## Dependencies
+## Nuget Dependencies
 - Avaloniaui
 - CommunityToolkit.Mvvm
+- HanumanInstitute.MvvmDialogs.Avalonia
 - Lucene.NET
+- Microsoft.Extensions.DependencyInjection
 - NMeCab
-- NSubstitute
-- xUnit
-
-## TODO
-1. - [ ] Single text file, load text, close (Walking skeleton)
+- NUnit
