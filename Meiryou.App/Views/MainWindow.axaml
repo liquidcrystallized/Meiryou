@@ -23,7 +23,7 @@
                 <TextBlock Text="MainWindow/Intro/Default Content" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </reactiveui:RoutedViewHost.DefaultContent>
             <reactiveui:RoutedViewHost.ViewLocator>
-                <app:AppViewLocator/>
+                <app:ViewLocator/>
             </reactiveui:RoutedViewHost.ViewLocator>
         </reactiveui:RoutedViewHost>
         
