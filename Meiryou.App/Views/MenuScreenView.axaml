@@ -20,6 +20,11 @@
                    FontSize="16"
                    Text="{Binding Message}"
                    TextWrapping="Wrap"/>
+        <TextBlock VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   FontSize="16"
+                   Text="{Binding UrlPathSegment}"
+                   TextWrapping="Wrap"/>
     </StackPanel>
     
 </UserControl>

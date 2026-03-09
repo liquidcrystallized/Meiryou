@@ -1,13 +1,14 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Meiryou.ViewModels;
+using ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace Meiryou.Views;
 
-public partial class MenuScreenView : UserControl
+public partial class MenuScreenView : ReactiveUserControl<MenuScreenViewModel>
 {
     public MenuScreenView()
     {
+        this.WhenActivated(disposables => { });
         InitializeComponent();
     }
 }

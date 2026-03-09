@@ -1,22 +1,17 @@
 using System;
+using ReactiveUI;
 
 namespace Meiryou.ViewModels;
 
-public class MenuScreenViewModel : ScreenViewModelBase
+public class MenuScreenViewModel : ReactiveObject, IRoutableViewModel
 {
-    public string Title => "Main Menu";
+    public string Title => "MenuScreenViewModel";
 
-    public string Message => "Press \"Next\" to route to the next screen";
+    public string Message => "Press \"Next\" to add another \"MainMenuViewModel\" to the ReactUI NavigationStack";
 
-    public override bool CanNavigateNext
-    {
-        get => true; 
-        protected set => throw new NotSupportedException();
-    }
+    public IScreen HostScreen { get; set; }
+    
+    public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
 
-    public override bool CanNavigatePrevious
-    {
-        get => false; 
-        protected set => throw new NotSupportedException();
-    }
+    public MenuScreenViewModel(IScreen screen) => HostScreen = screen;
 }
