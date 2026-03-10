@@ -1,18 +1,15 @@
 using System;
+using ReactiveUI;
 
 namespace Meiryou.ViewModels;
 
-public class SettingsScreenViewModel : ScreenViewModelBase
+public class SettingsScreenViewModel : ReactiveObject, IRoutableViewModel
 {
-    public override bool CanNavigateNext
-    {
-        get => false; 
-        protected set => throw new NotSupportedException();
-    }
+    public string Title => "SettingsScreenViewModel";
 
-    public override bool CanNavigatePrevious
-    {
-        get => true; 
-        protected set => throw new NotSupportedException();
-    }
+    public string Message => "Press \"Next\" to add another \"MainMenuViewModel\" to the ReactUI NavigationStack";
+    
+    public IScreen HostScreen { get; set; }
+    
+    public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
 }

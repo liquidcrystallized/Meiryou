@@ -12,20 +12,15 @@
         <TextBlock VerticalAlignment="Center"
                    FontSize="16"
                    FontWeight="SemiBold"
-                   Text="Enter your Credentials"
+                   Text="LibraryScreenView"
                    TextAlignment="Center"
                    TextWrapping="Wrap"/>
-        <TextBox VerticalAlignment="Center"
+        
+        <TextBlock VerticalAlignment="Center"
+                   TextAlignment="Center"
                    FontSize="16"
-                   Text="{Binding MailAddress}"
-                   Watermark="E-Mail Address"
-                   UseFloatingWatermark="True"/>
-        <TextBox VerticalAlignment="Center"
-                 FontSize="16"
-                 PasswordChar="$"
-                 Text="{Binding Password}"
-                 Watermark="Password"
-                 UseFloatingWatermark="True"/>
+                   Text="{Binding UrlPathSegment}"
+                   TextWrapping="Wrap"/>
     </StackPanel>
     
 </UserControl>

@@ -20,6 +20,20 @@
                    FontSize="16"
                    Text="{Binding Message}"
                    TextWrapping="Wrap"/>
+        
+        <Button Content="Library"
+                Command="{Binding NavigateToLibraryCommand}"
+                Width="200"
+                Height="50"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+        <Button Content="Settings"
+                Command="{Binding NavigateToSettingsCommand}"
+                Width="200"
+                Height="50"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+        
         <TextBlock VerticalAlignment="Center"
                    TextAlignment="Center"
                    FontSize="16"
