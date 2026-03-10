@@ -11,6 +11,7 @@ public class ViewLocator : IViewLocator
     {
         MenuScreenViewModel context => new MenuScreenView { DataContext = context },
         LibraryScreenViewModel context => new LibraryScreenView { DataContext = context },
+        SettingsScreenViewModel context => new SettingsScreenView { DataContext =  context },
         _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
     };
 }
