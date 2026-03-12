@@ -16,17 +16,22 @@ public class MenuScreenViewModel : ReactiveObject, IRoutableViewModel
     
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateToLibraryCommand { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateToSettingsCommand { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateToReaderCommand { get; } // Temporary, remove after reader screen works.
 
     public MenuScreenViewModel(IScreen screen)
     {
         HostScreen = screen;
 
         NavigateToLibraryCommand = ReactiveCommand.CreateFromObservable(
-                () => HostScreen.Router.Navigate.Execute(new LibraryScreenViewModel())
+            () => HostScreen.Router.Navigate.Execute(new LibraryScreenViewModel())
         );
         
         NavigateToSettingsCommand = ReactiveCommand.CreateFromObservable(
             () => HostScreen.Router.Navigate.Execute(new SettingsScreenViewModel())
+        );
+
+        NavigateToReaderCommand = ReactiveCommand.CreateFromObservable(
+            () => HostScreen.Router.Navigate.Execute(new ReaderScreenViewModel())
         );
     }
 }

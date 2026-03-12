@@ -33,6 +33,12 @@
                 Height="50"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"/>
+        <Button Content="Reader (For testing)"
+                Command="{Binding NavigateToReaderCommand}"
+                Width="200"
+                Height="50"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
         
         <TextBlock VerticalAlignment="Center"
                    TextAlignment="Center"
