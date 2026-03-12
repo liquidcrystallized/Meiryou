@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Meiryou.ViewModels"
+             xmlns:models="clr-namespace:Meiryou.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:CompileBindings="True"
              x:Class="Meiryou.Views.ReaderScreenView"
@@ -21,6 +22,29 @@
                    FontSize="16"
                    Text="{Binding UrlPathSegment}"
                    TextWrapping="Wrap"/>
+        
+        <Button Content="Add Random Text"
+                Command="{Binding AddRandomTextCommand}"
+                HorizontalAlignment="Center"
+                Padding="15,8"/>
+        
+        <ItemsControl ItemsSource="{Binding TextEntries}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:TextEntry">
+                    <Border Background="{Binding BackgroundColour}"
+                            CornerRadius="8"
+                            Margin="0,4"
+                            Padding="12,8">
+                        <TextBlock Text="{Binding Content}"
+                                   Foreground="{Binding ForegroundColour}"
+                                   FontSize="16"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
     
 </UserControl>
