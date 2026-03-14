@@ -4,6 +4,14 @@
 # Meiryou
 Meiryou (明瞭) is a free and open source application that helps Japanese learners acquire vocabulary by reading.
 
+## How It Works
+
+Read as you learn. Your familiarity with a word is indicated by the the background colour of the word. The colour
+changes the more familiar you are with a word. When a word becomes well known, the colour will
+disappear altogether.
+
+You'll also be able to click on a word to see and edit various stats and info about a word.
+
 ## Planned Features
 
 ### Offline and local first
@@ -25,10 +33,7 @@ the application (such as hosting a server). The UI/UX is designed with HIGs in m
 Support for desktop (Windows/Linux) and mobile (Android).
 
 ## Nuget Dependencies
-- Avaloniaui
-- CommunityToolkit.Mvvm
-- HanumanInstitute.MvvmDialogs.Avalonia
+- Avalonia UI
 - Lucene.NET
-- Microsoft.Extensions.DependencyInjection
 - NMeCab
-- NUnit
+- ReactiveUI
