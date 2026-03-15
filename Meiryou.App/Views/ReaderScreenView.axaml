@@ -27,6 +27,23 @@
                 Command="{Binding AddRandomTextCommand}"
                 HorizontalAlignment="Center"
                 Padding="15,8"/>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Words}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:WordEntry">
+                        <TextBlock Text="{Binding Data.Text}" 
+                                   Foreground="{Binding ForegroundBrush}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </StackPanel>
     
 </UserControl>
