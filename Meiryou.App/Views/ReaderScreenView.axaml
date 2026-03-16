@@ -28,7 +28,7 @@
                 HorizontalAlignment="Center"
                 Padding="15,8"/>
         
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="100">
             <ItemsControl ItemsSource="{Binding Words}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
