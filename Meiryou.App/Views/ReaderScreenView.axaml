@@ -8,27 +8,17 @@
              x:CompileBindings="True"
              x:Class="Meiryou.Views.ReaderScreenView"
              x:DataType="vm:ReaderScreenViewModel">
-   
-    <StackPanel VerticalAlignment="Center" Spacing="5" MaxWidth="350">
-        <TextBlock VerticalAlignment="Center"
-                   FontSize="16"
-                   FontWeight="SemiBold"
-                   Text="ReaderScreenView"
-                   TextAlignment="Center"
-                   TextWrapping="Wrap"/>
+  
+    <DockPanel LastChildFill="False">
+        <UniformGrid Rows="1" Columns="3" DockPanel.Dock="Top">
+            <!-- Not sure if having buttons here is good ui, but it's okay for testing for now. -->
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center">Back</Button>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">ReaderScreenView</TextBlock>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Command="{Binding AddRandomTextCommand}">Add Random Text</Button>
+        </UniformGrid>
         
-        <TextBlock VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   FontSize="16"
-                   Text="{Binding UrlPathSegment}"
-                   TextWrapping="Wrap"/>
-        
-        <Button Content="Add Random Text"
-                Command="{Binding AddRandomTextCommand}"
-                HorizontalAlignment="Center"
-                Padding="15,8"/>
-        
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="100">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Words}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -38,12 +28,19 @@
             
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="vm:WordEntry">
-                        <TextBlock Text="{Binding Data.Text}" 
-                                   Foreground="{Binding ForegroundBrush}"/>
+                        <TextBlock FontSize="20" Text="{Binding Data.Text}" Foreground="{Binding ForegroundBrush}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-    </StackPanel>
+        
+        <UniformGrid Rows="1" Columns="1" DockPanel.Dock="Bottom">
+            <TextBlock FontSize="16" 
+                       Text="{Binding UrlPathSegment}" 
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </UniformGrid>
+    </DockPanel>
     
 </UserControl>
