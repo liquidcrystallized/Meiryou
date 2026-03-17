@@ -36,4 +36,5 @@ Support for desktop (Windows/Linux) and mobile (Android).
 - Avalonia UI
 - Lucene.NET
 - NMeCab
+- NUnit
 - ReactiveUI
