@@ -20,4 +20,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Meiryou.App\Meiryou.App.csproj" />
+    </ItemGroup>
+
 </Project>
