@@ -9,7 +9,7 @@ public class WordData : IEquatable<WordData>
     public int Length => Text.Length;
     
     // Helper to identify if the word is actually a spare character.
-    public bool IsSpace => Text == " ";
+    public bool IsSpace => string.IsNullOrWhiteSpace(Text) && !string.IsNullOrEmpty(Text);
 
     public bool Equals(WordData? other)
     {
