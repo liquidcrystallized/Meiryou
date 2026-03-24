@@ -29,7 +29,10 @@
             
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="vm:WordEntry">
-                        <TextBlock FontSize="20" Text="{Binding Data.Text}" Foreground="{Binding ForegroundBrush}"/>
+                        <TextBlock FontSize="20" 
+                                   Text="{Binding Data.Text}" 
+                                   Foreground="{Binding ForegroundBrush}"
+                                   Cursor="Hand"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
