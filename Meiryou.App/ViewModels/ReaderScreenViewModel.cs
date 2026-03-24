@@ -41,7 +41,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReaderScreenViewModel()
     {
         AddRandomTextCommand = ReactiveCommand.Create(AddRandomText);
-        SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWordInternal);
+        SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWord);
         
         //TODO: Remove later, just some content for immediate visualisation.
         AddRandomText();
@@ -90,7 +90,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
-    private void SelectWordInternal(WordEntry? word)
+    private void SelectWord(WordEntry? word)
     {
         if (word == null || word.IsSpace) return;
 
