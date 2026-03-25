@@ -1,5 +1,6 @@
-> Warning: This app is a WIP and is in active development. Do not use this unless you are a developer. Things WILL break and your
-> data WILL be lost. This warning will go away once the application reaches 1.0 status.
+> Warning: This app is a WIP and is in active development. It is currently intended for developers. Things will break and
+> there is not persistant data. Downloads for various platforms (Windows/Linux/Android) will be available when the application
+> hits 1.0 status.
 
 # Meiryou
 Meiryou (明瞭) is a free and open source application that helps Japanese learners acquire vocabulary by reading.
@@ -33,8 +34,8 @@ the application (such as hosting a server). The UI/UX is designed with HIGs in m
 Support for desktop (Windows/Linux) and mobile (Android).
 
 ## Nuget Dependencies
-- Avalonia UI
-- Lucene.NET
-- NMeCab
-- NUnit
-- ReactiveUI
+- [Avalonia](https://github.com/avaloniaui/avalonia) (MIT)
+- [Lucene.NET](https://github.com/apache/lucenenet) (Apache-2.0)
+- [NMeCab](https://github.com/komutan/NMeCab) (LGPL)
+- [NUnit](https://github.com/nunit/nunit) (MIT)
+- [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (MIT)
