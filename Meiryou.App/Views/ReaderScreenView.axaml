@@ -32,14 +32,15 @@
                         <TextBlock FontSize="20" 
                                    Text="{Binding Data.Text}" 
                                    Foreground="{Binding ForegroundBrush}"
-                                   Cursor="Hand"/>
+                                   Cursor="Hand"
+                                   PointerPressed="InputElement_OnPointerPressed"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
       
         <!-- Popup for word definitions are here -->
-       <Grid Grid.Row="2" IsVisible="True">
+       <Grid Grid.Row="2" IsVisible="{Binding IsPopupVisible}">
            <!-- Random content to test hiding -->
            <TextBlock>Hello</TextBlock>
            <Button HorizontalAlignment="Center">Some button</Button>

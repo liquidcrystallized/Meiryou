@@ -24,6 +24,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref field, value);
     }
 
+    public bool IsPopupVisible
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+
     public ReactiveCommand<Unit, Unit> AddRandomTextCommand { get; }
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
     
@@ -94,6 +100,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     {
         if (word == null || word.IsSpace) return;
 
+        IsPopupVisible = !IsPopupVisible;
         SelectedWord = word;
     }
 }
