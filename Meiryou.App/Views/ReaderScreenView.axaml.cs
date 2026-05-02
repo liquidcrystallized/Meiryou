@@ -6,6 +6,7 @@ using ReactiveUI.Avalonia;
 
 namespace Meiryou.Views;
 
+//TODO: Try to get rid of most of the code behind.
 public partial class ReaderScreenView : ReactiveUserControl<ReaderScreenViewModel>
 {
     public ReaderScreenView()
@@ -14,9 +15,16 @@ public partial class ReaderScreenView : ReactiveUserControl<ReaderScreenViewMode
         InitializeComponent();
     }
 
-    //TODO: Get rid of this, don't want stuff in the code behind if possible.
+    private void ScrollViewer_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        var viewModel = DataContext as ReaderScreenViewModel;
+        viewModel?.ClosePopupCommand.Execute().Subscribe();
+    }
+
     private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        e.Handled = true;
+        
         if ((sender as Avalonia.Controls.Control)?.DataContext is not WordEntry wordEntry) 
             return;
 

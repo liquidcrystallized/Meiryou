@@ -19,7 +19,7 @@
         </UniformGrid>
        
         <!-- This is where the reading content is displayed -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" PointerPressed="ScrollViewer_OnPointerPressed">
             <ItemsControl ItemsSource="{Binding Words}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

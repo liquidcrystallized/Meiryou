@@ -31,6 +31,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     }
 
     public ReactiveCommand<Unit, Unit> AddRandomTextCommand { get; }
+    public ReactiveCommand<Unit, Unit> ClosePopupCommand { get; }
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
     
     //TODO: Just for testing.
@@ -47,6 +48,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReaderScreenViewModel()
     {
         AddRandomTextCommand = ReactiveCommand.Create(AddRandomText);
+        ClosePopupCommand = ReactiveCommand.Create(ClosePopup);
         SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWord);
         
         //TODO: Remove later, just some content for immediate visualisation.
@@ -96,11 +98,19 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
+    private void ClosePopup()
+    {
+        IsPopupVisible = false;
+        SelectedWord = null;
+    }
+
     private void SelectWord(WordEntry? word)
     {
         if (word == null || word.IsSpace) return;
 
-        IsPopupVisible = !IsPopupVisible;
+        if (!IsPopupVisible) 
+            IsPopupVisible = true;
+        
         SelectedWord = word;
     }
 }
