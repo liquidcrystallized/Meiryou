@@ -108,9 +108,16 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     {
         if (word == null || word.IsSpace) return;
 
-        if (!IsPopupVisible) 
+        // Only toggle the popup off and on if the word being clicked is the same.
+        if (IsPopupVisible && SelectedWord == word || !IsPopupVisible && SelectedWord == word)
+        {
+            IsPopupVisible = !IsPopupVisible;
+        }
+        else
+        {
             IsPopupVisible = true;
-        
+        }
+
         SelectedWord = word;
     }
 }
