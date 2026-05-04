@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using ReactiveUI.Avalonia;
 using System;
+using Avalonia.Headless;
 
 namespace Meiryou;
 
@@ -19,5 +20,6 @@ sealed class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI();
+            .UseReactiveUI()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions());
 }
