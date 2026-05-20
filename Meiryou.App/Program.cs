@@ -20,6 +20,5 @@ sealed class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace()
-            .UseReactiveUI()
-            .UseHeadless(new AvaloniaHeadlessPlatformOptions());
+            .UseReactiveUI();
 }
