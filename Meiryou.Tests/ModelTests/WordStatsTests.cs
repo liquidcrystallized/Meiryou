@@ -15,6 +15,7 @@ public class WordStatsTests
             Assert.That(stats.Definition, Is.Empty);
             Assert.That(stats.PartOfSpeech, Is.Empty);
             Assert.That(stats.FrequencyRank, Is.EqualTo(-1));
+            Assert.That(stats.WordFamiliarityLevel, Is.EqualTo(WordFamiliarityLevel.Unknown));
         }
     }
 
@@ -40,5 +41,13 @@ public class WordStatsTests
         var stats = new WordStats { FrequencyRank = 67 };
         
         Assert.That(stats.FrequencyRank, Is.EqualTo(67));
+    }
+
+    [Test]
+    public void WordFamiliarityLevelProperty_SetValue_WordFamiliarityLevelIsUpdated()
+    {
+        var stats = new WordStats { WordFamiliarityLevel = WordFamiliarityLevel.New };
+
+        Assert.That(stats.WordFamiliarityLevel, Is.EqualTo(WordFamiliarityLevel.New));
     }
 }

@@ -57,6 +57,10 @@
                <TextBlock FontSize="14"
                           Text="{Binding SelectedWord.Stats.FrequencyRank, StringFormat='Frequency Rank: {0}'}" 
                           Margin="0,0,0,5"/>
+               
+               <TextBlock FontSize="14"
+                          Text="{Binding SelectedWord.Stats.WordFamiliarityLevel }"
+                          Margin="0, 0, 0, 5"/>
            </StackPanel>
        </Grid> 
         
