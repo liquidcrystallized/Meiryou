@@ -63,20 +63,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
 
         foreach (var word in words)
         {
-            var r1 = (byte)random.Next(0, 256);
-            var g1 = (byte)random.Next(0, 256);
-            var b1 = (byte)random.Next(0, 256);
-
-            var r2 = (byte)random.Next(0, 256);
-            var g2 = (byte)random.Next(0, 256);
-            var b2 = (byte)random.Next(0, 256);
-
-            var foregroundColour = Color.FromRgb(r1, g1, b1);
-            var backgroundColour = Color.FromRgb(r2, b2, g2);
-
             var stats = _mockDictionary.TryGetValue(word.ToLower(), out var s)
                 ? s
                 : new WordStats { Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1 };
+
+            var foregroundColour = WordFamiliarityColors.GetBackgroundColor(stats.WordFamiliarityLevel).Color;
+            var backgroundColour = WordFamiliarityColors.GetForegroundColor(stats.WordFamiliarityLevel).Color;
             
             Words.Add(new WordEntry
             {
