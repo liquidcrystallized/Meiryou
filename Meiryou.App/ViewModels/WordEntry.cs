@@ -9,6 +9,12 @@ public class WordEntry : ReactiveObject
     public WordData Data { get; set; } = new();
     public WordStats Stats { get; set; } = new();
 
+    public SolidColorBrush? BackgroundBrush
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+
     public SolidColorBrush? ForegroundBrush
     {
         get;
