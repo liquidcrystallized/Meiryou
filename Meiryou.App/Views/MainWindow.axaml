@@ -9,7 +9,27 @@
         x:Class="Meiryou.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Meiryou">
+        Title="Meiryou"
+        RequestedThemeVariant="Dark">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <!-- Cattpuccin Mocha -->
+                <ResourceDictionary x:Key='Dark'>
+                    <SolidColorBrush x:Key='Text'>#cdd6f4</SolidColorBrush>
+                    <SolidColorBrush x:Key='Surface0'>#313244</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="{DynamicResource Surface0}" />
+            <Setter Property="Foreground" Value="{DynamicResource Text}" />
+        </Style>
+    </Window.Styles>
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
