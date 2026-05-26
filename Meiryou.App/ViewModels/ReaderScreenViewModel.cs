@@ -37,12 +37,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     //TODO: Just for testing.
     private readonly Dictionary<string, WordStats> _mockDictionary = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "Hello", new WordStats { Definition = "A greeting", PartOfSpeech = "Interjection", FrequencyRank = 5 } },
-        { "World", new WordStats { Definition = "The earth or humanity", PartOfSpeech = "Noun", FrequencyRank = 10 } },
-        { "This", new WordStats { Definition = "Used to indicate a specific thing", PartOfSpeech = "Pronoun", FrequencyRank = 3 } },
-        { "is", new WordStats { Definition = "Third person singular of 'be'", PartOfSpeech = "Verb", FrequencyRank = 2 } },
-        { "a", new WordStats { Definition = "One; any; an indefinite amount", PartOfSpeech = "Article", FrequencyRank = 1 } },
-        { "test", new WordStats { Definition = "A sample or trial examination", PartOfSpeech = "Noun", FrequencyRank = 450 } }
+        { "Hello", new WordStats { Definition = "A greeting", PartOfSpeech = "Interjection", FrequencyRank = 5, WordFamiliarityLevel = GenerateRandomLevel() } },
+        { "World", new WordStats { Definition = "The earth or humanity", PartOfSpeech = "Noun", FrequencyRank = 10, WordFamiliarityLevel = GenerateRandomLevel() } },
+        { "This", new WordStats { Definition = "Used to indicate a specific thing", PartOfSpeech = "Pronoun", FrequencyRank = 3, WordFamiliarityLevel = GenerateRandomLevel() } },
+        { "is", new WordStats { Definition = "Third person singular of 'be'", PartOfSpeech = "Verb", FrequencyRank = 2, WordFamiliarityLevel =  GenerateRandomLevel() } },
+        { "a", new WordStats { Definition = "One; any; an indefinite amount", PartOfSpeech = "Article", FrequencyRank = 1, WordFamiliarityLevel =  GenerateRandomLevel() } },
+        { "test", new WordStats { Definition = "A sample or trial examination", PartOfSpeech = "Noun", FrequencyRank = 450, WordFamiliarityLevel =  GenerateRandomLevel() } },
     };
 
     public ReaderScreenViewModel()
@@ -58,14 +58,13 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     //TODO: Temporary, remove/change later.
     private void AddRandomText()
     {
-        var random = new Random();
         string[] words = { "Hello", "World", "This", "is", "a", "test" };
 
         foreach (var word in words)
         {
             var stats = _mockDictionary.TryGetValue(word.ToLower(), out var s)
                 ? s
-                : new WordStats { Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1 };
+                : new WordStats { Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1, WordFamiliarityLevel =  GenerateRandomLevel() };
 
             var backgroundColour = WordFamiliarityColors.GetBackgroundColor(stats.WordFamiliarityLevel).Color;
             var foregroundColour = WordFamiliarityColors.GetForegroundColor(stats.WordFamiliarityLevel).Color;
@@ -90,6 +89,16 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                 });
             }
         }
+    }
+
+    //TODO: Only for testing.
+    private static WordFamiliarityLevel GenerateRandomLevel()
+    {
+        var random = new Random();
+        var levels = Enum.GetValues<WordFamiliarityLevel>();
+        var randomIndex = random.Next(levels.Length);
+
+        return levels[randomIndex];
     }
 
     private void ClosePopup()
