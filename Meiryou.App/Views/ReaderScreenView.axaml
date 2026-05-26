@@ -31,6 +31,7 @@
                     <DataTemplate x:DataType="vm:WordEntry">
                         <TextBlock FontSize="20" 
                                    Text="{Binding Data.Text}" 
+                                   Background="{Binding BackgroundBrush}"
                                    Foreground="{Binding ForegroundBrush}"
                                    Cursor="Hand"
                                    PointerPressed="InputElement_OnPointerPressed"/>

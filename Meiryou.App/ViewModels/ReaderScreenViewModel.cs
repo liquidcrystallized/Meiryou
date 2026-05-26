@@ -67,12 +67,13 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                 ? s
                 : new WordStats { Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1 };
 
-            var foregroundColour = WordFamiliarityColors.GetBackgroundColor(stats.WordFamiliarityLevel).Color;
-            var backgroundColour = WordFamiliarityColors.GetForegroundColor(stats.WordFamiliarityLevel).Color;
+            var backgroundColour = WordFamiliarityColors.GetBackgroundColor(stats.WordFamiliarityLevel).Color;
+            var foregroundColour = WordFamiliarityColors.GetForegroundColor(stats.WordFamiliarityLevel).Color;
             
             Words.Add(new WordEntry
             {
                 Data = new WordData { Text = word },
+                BackgroundBrush = new SolidColorBrush(backgroundColour),
                 ForegroundBrush = new SolidColorBrush(foregroundColour),
                 Stats = stats
             });
@@ -82,7 +83,8 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                 Words.Add(new WordEntry
                 {
                     Data = new WordData { Text = " " },
-                    ForegroundBrush = new SolidColorBrush(backgroundColour),
+                    BackgroundBrush = new SolidColorBrush(backgroundColour),
+                    ForegroundBrush = new SolidColorBrush(foregroundColour),
                     IsSpace = true,
                     Stats = stats
                 });
