@@ -3,7 +3,8 @@ using Avalonia.Media;
 namespace Meiryou.Models;
 
 /**
- * TODO: Rethink these colors OR just let the user set them.
+ * Defaults are a modified Catppuccin Mocha.
+ * //TODO Make this changeable by user.
  */
 public static class WordFamiliarityColors
 {
@@ -11,13 +12,13 @@ public static class WordFamiliarityColors
     {
         return level switch
         {
-            WordFamiliarityLevel.Unknown => new SolidColorBrush(Color.Parse("#4B90B8")),       // Grayish Blue
-            WordFamiliarityLevel.New => new SolidColorBrush(Color.Parse("#E32424")),           // Red
-            WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#FFFF00")),      // Yellow
-            WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#FFA500")),      // Orange
-            WordFamiliarityLevel.Known => new SolidColorBrush(Color.Parse("#90EE90")),         // Light Green
+            WordFamiliarityLevel.Unknown => new SolidColorBrush(Color.Parse("#9199cc")),       // Lavender
+            WordFamiliarityLevel.New => new SolidColorBrush(Color.Parse("#b3677c")),           // Red
+            WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#b4a47f")),      // Yellow
+            WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#b38060")),      // Peach
+            WordFamiliarityLevel.Known => new SolidColorBrush(Color.Parse("#83b37f")),         // Green
             WordFamiliarityLevel.WellKnown => SolidColorBrush.Parse("Transparent"),            // No color
-            _ => new SolidColorBrush(Color.Parse("#4B90B8"))                                   // Default Grayish Blue
+            _ => new SolidColorBrush(Color.Parse("#9199cc"))                                   // Default Grayish Blue
         };
     }
     
@@ -25,13 +26,14 @@ public static class WordFamiliarityColors
     {
         return level switch
         {
-            WordFamiliarityLevel.Unknown => new SolidColorBrush(Color.Parse("#000000")),       // Black text on grayish blue
-            WordFamiliarityLevel.New => new SolidColorBrush(Color.Parse("#000000")),           // Black text on yellow
-            WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#000000")),      // Black text on orange
-            WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#006400")),      // Dark green text
-            WordFamiliarityLevel.Known => new SolidColorBrush(Color.Parse("#000000")),         // Black text
-            WordFamiliarityLevel.WellKnown => new SolidColorBrush(Color.Parse("#000000")),     // Black text
-            _ => new SolidColorBrush(Color.Parse("#000000"))                                   // Default Black
+            _ => new SolidColorBrush(Color.Parse("#CDD6F4"))
+            //WordFamiliarityLevel.Unknown => new SolidColorBrush(Color.Parse("#11111b")),       
+            //WordFamiliarityLevel.New => new SolidColorBrush(Color.Parse("#11111b")),           
+            //WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#11111b")),      
+            //WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#11111b")),      
+            //WordFamiliarityLevel.Known => new SolidColorBrush(Color.Parse("#11111b")),         
+            //WordFamiliarityLevel.WellKnown => new SolidColorBrush(Color.Parse("#CDD6F4")),     
+            //_ => new SolidColorBrush(Color.Parse("#CDD6F4"))
         };
     }
 }
