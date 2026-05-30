@@ -1,6 +1,6 @@
 using Meiryou.Models;
 
-namespace Meiryou.Tests.ModelTests;
+namespace Meiryou.Tests.App.ModelTests;
 
 [TestFixture]
 public class WordDataTests
