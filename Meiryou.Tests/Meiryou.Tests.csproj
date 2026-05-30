@@ -27,7 +27,6 @@
 
     <ItemGroup>
       <Folder Include="App\" />
-      <Folder Include="Core\" />
     </ItemGroup>
 
 </Project>
