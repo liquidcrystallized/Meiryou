@@ -1,4 +1,4 @@
-namespace Meiryou.Models;
+namespace Meiryou.Core.Models;
 
 public enum WordFamiliarityLevel
 {

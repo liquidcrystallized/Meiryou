@@ -1,3 +1,5 @@
+using Meiryou.Core.Models;
+
 namespace Meiryou.Models;
 
 public class WordStats

@@ -1,3 +1,4 @@
+using Meiryou.Core.Models;
 using Meiryou.Models;
 
 namespace Meiryou.Tests.ModelTests;
