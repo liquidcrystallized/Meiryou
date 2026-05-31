@@ -30,7 +30,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="vm:WordEntry">
                         <TextBlock FontSize="20" 
-                                   Text="{Binding Data.Text}" 
+                                   Text="{Binding Word.Text}" 
                                    Background="{Binding BackgroundBrush}"
                                    Foreground="{Binding ForegroundBrush}"
                                    Cursor="Hand"
@@ -44,23 +44,23 @@
        <Grid Grid.Row="2" IsVisible="{Binding IsPopupVisible}">
            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                <TextBlock FontSize="18" FontWeight="Bold"
-                          Text="{Binding SelectedWord.Data.Text}"
+                          Text="{Binding SelectedWord.Word.Text}"
                           Margin="0,0,0,10"/>
                
                <TextBlock FontSize="14" 
-                          Text="{Binding SelectedWord.Stats.Definition}" 
+                          Text="{Binding SelectedWord.Word.Definition}" 
                           Margin="0,0,0,5"/>
                
                <TextBlock FontSize="14" FontStyle="Italic"
-                          Text="{Binding SelectedWord.Stats.PartOfSpeech}" 
+                          Text="{Binding SelectedWord.Word.PartOfSpeech}" 
                           Margin="0,0,0,5"/>
                
                <TextBlock FontSize="14"
-                          Text="{Binding SelectedWord.Stats.FrequencyRank, StringFormat='Frequency Rank: {0}'}" 
+                          Text="{Binding SelectedWord.Word.FrequencyRank, StringFormat='Frequency Rank: {0}'}" 
                           Margin="0,0,0,5"/>
                
                <TextBlock FontSize="14"
-                          Text="{Binding SelectedWord.Stats.WordFamiliarityLevel }"
+                          Text="{Binding SelectedWord.Word.FamiliarityLevel }"
                           Margin="0, 0, 0, 5"/>
            </StackPanel>
        </Grid> 

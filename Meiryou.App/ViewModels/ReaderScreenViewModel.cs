@@ -36,14 +36,14 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
     
     //TODO: Just for testing.
-    private readonly Dictionary<string, WordStats> _mockDictionary = new(StringComparer.OrdinalIgnoreCase)
+    private readonly Dictionary<string, Word> _mockDictionary = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "Hello", new WordStats { Definition = "A greeting", PartOfSpeech = "Interjection", FrequencyRank = 5, WordFamiliarityLevel = GenerateRandomLevel() } },
-        { "World", new WordStats { Definition = "The earth or humanity", PartOfSpeech = "Noun", FrequencyRank = 10, WordFamiliarityLevel = GenerateRandomLevel() } },
-        { "This", new WordStats { Definition = "Used to indicate a specific thing", PartOfSpeech = "Pronoun", FrequencyRank = 3, WordFamiliarityLevel = GenerateRandomLevel() } },
-        { "is", new WordStats { Definition = "Third person singular of 'be'", PartOfSpeech = "Verb", FrequencyRank = 2, WordFamiliarityLevel =  GenerateRandomLevel() } },
-        { "a", new WordStats { Definition = "One; any; an indefinite amount", PartOfSpeech = "Article", FrequencyRank = 1, WordFamiliarityLevel =  GenerateRandomLevel() } },
-        { "test", new WordStats { Definition = "A sample or trial examination", PartOfSpeech = "Noun", FrequencyRank = 450, WordFamiliarityLevel =  GenerateRandomLevel() } },
+        { "Hello", new Word { Definition = "A greeting", PartOfSpeech = "Interjection", FrequencyRank = 5, FamiliarityLevel = GenerateRandomLevel() } },
+        { "World", new Word { Definition = "The earth or humanity", PartOfSpeech = "Noun", FrequencyRank = 10, FamiliarityLevel = GenerateRandomLevel() } },
+        { "This", new Word { Definition = "Used to indicate a specific thing", PartOfSpeech = "Pronoun", FrequencyRank = 3, FamiliarityLevel = GenerateRandomLevel() } },
+        { "is", new Word { Definition = "Third person singular of 'be'", PartOfSpeech = "Verb", FrequencyRank = 2, FamiliarityLevel =  GenerateRandomLevel() } },
+        { "a", new Word { Definition = "One; any; an indefinite amount", PartOfSpeech = "Article", FrequencyRank = 1, FamiliarityLevel =  GenerateRandomLevel() } },
+        { "test", new Word { Definition = "A sample or trial examination", PartOfSpeech = "Noun", FrequencyRank = 450, FamiliarityLevel =  GenerateRandomLevel() } },
     };
 
     public ReaderScreenViewModel()
@@ -65,28 +65,33 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         {
             var stats = _mockDictionary.TryGetValue(word.ToLower(), out var s)
                 ? s
-                : new WordStats { Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1, WordFamiliarityLevel =  GenerateRandomLevel() };
+                : new Word { Text = word, Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1, FamiliarityLevel =  GenerateRandomLevel() };
 
-            var backgroundColour = WordFamiliarityColors.GetBackgroundColor(stats.WordFamiliarityLevel).Color;
-            var foregroundColour = WordFamiliarityColors.GetForegroundColor(stats.WordFamiliarityLevel).Color;
+            var backgroundColour = WordFamiliarityColors.GetBackgroundColor(stats.FamiliarityLevel).Color;
+            var foregroundColour = WordFamiliarityColors.GetForegroundColor(stats.FamiliarityLevel).Color;
             
             Words.Add(new WordEntry
             {
-                Data = new WordData { Text = word },
+                Word = new Word
+                {
+                    Text = word,
+                    Definition = stats.Definition,
+                    PartOfSpeech = stats.PartOfSpeech,
+                    FrequencyRank = stats.FrequencyRank,
+                    FamiliarityLevel =  stats.FamiliarityLevel,
+                },
                 BackgroundBrush = new SolidColorBrush(backgroundColour),
                 ForegroundBrush = new SolidColorBrush(foregroundColour),
-                Stats = stats
             });
 
             if (words.Last() != word)
             {
                 Words.Add(new WordEntry
                 {
-                    Data = new WordData { Text = " " },
+                    Word = new Word { Text = " " },
                     BackgroundBrush = new SolidColorBrush(backgroundColour),
                     ForegroundBrush = new SolidColorBrush(foregroundColour),
                     IsSpace = true,
-                    Stats = stats
                 });
             }
         }

@@ -27,6 +27,7 @@
 
     <ItemGroup>
       <Folder Include="App\" />
+      <Folder Include="App\ModelTests\" />
     </ItemGroup>
 
 </Project>

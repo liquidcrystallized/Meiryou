@@ -1,13 +1,12 @@
 using Avalonia.Media;
-using Meiryou.Models;
+using Meiryou.Core.Models;
 using ReactiveUI;
 
 namespace Meiryou.ViewModels;
 
 public class WordEntry : ReactiveObject
 {
-    public WordData Data { get; set; } = new();
-    public WordStats Stats { get; set; } = new();
+    public Word Word { get; set; } = new();
 
     public SolidColorBrush? BackgroundBrush
     {

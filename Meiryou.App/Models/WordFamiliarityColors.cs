@@ -15,11 +15,11 @@ public static class WordFamiliarityColors
         {
             WordFamiliarityLevel.Unknown => new SolidColorBrush(Color.Parse("#9199cc")),       // Lavender
             WordFamiliarityLevel.New => new SolidColorBrush(Color.Parse("#b3677c")),           // Red
-            WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#b4a47f")),      // Yellow
-            WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#b38060")),      // Peach
+            WordFamiliarityLevel.Learning => new SolidColorBrush(Color.Parse("#b38060")),      // Peach
+            WordFamiliarityLevel.Familiar => new SolidColorBrush(Color.Parse("#b4a47f")),      // Yellow
             WordFamiliarityLevel.Known => new SolidColorBrush(Color.Parse("#83b37f")),         // Green
             WordFamiliarityLevel.WellKnown => SolidColorBrush.Parse("Transparent"),            // No color
-            _ => new SolidColorBrush(Color.Parse("#9199cc"))                                   // Default Grayish Blue
+            _ => new SolidColorBrush(Color.Parse("#9199cc"))                                   // Default Lavender
         };
     }
     
