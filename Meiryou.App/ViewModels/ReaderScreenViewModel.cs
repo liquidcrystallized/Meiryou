@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using Avalonia.Media;
 using Meiryou.Core.Models;
-using Meiryou.Models;
 using ReactiveUI;
-using Splat.ApplicationPerformanceMonitoring;
 
 namespace Meiryou.ViewModels;
 
