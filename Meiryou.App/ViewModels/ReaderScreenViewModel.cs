@@ -66,9 +66,6 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
             var stats = _mockDictionary.TryGetValue(word.ToLower(), out var s)
                 ? s
                 : new Word { Text = word, Definition = "No definition available", PartOfSpeech = "Unknown", FrequencyRank = -1, FamiliarityLevel =  GenerateRandomLevel() };
-
-            var backgroundColour = WordFamiliarityColors.GetBackgroundColor(stats.FamiliarityLevel).Color;
-            var foregroundColour = WordFamiliarityColors.GetForegroundColor(stats.FamiliarityLevel).Color;
             
             Words.Add(new WordEntry
             {
@@ -80,17 +77,15 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                     FrequencyRank = stats.FrequencyRank,
                     FamiliarityLevel =  stats.FamiliarityLevel,
                 },
-                BackgroundBrush = new SolidColorBrush(backgroundColour),
-                ForegroundBrush = new SolidColorBrush(foregroundColour),
             });
 
             if (words.Last() != word)
             {
                 Words.Add(new WordEntry
                 {
-                    Word = new Word { Text = " " },
-                    BackgroundBrush = new SolidColorBrush(backgroundColour),
-                    ForegroundBrush = new SolidColorBrush(foregroundColour),
+                    Word = new Word { Text = " ", FamiliarityLevel = WordFamiliarityLevel.WellKnown},
+                    //BackgroundBrush = new SolidColorBrush(backgroundColour),
+                    //ForegroundBrush = new SolidColorBrush(foregroundColour),
                     IsSpace = true,
                 });
             }

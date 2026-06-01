@@ -31,8 +31,7 @@
                     <DataTemplate x:DataType="vm:WordEntry">
                         <TextBlock FontSize="20" 
                                    Text="{Binding Word.Text}" 
-                                   Background="{Binding BackgroundBrush}"
-                                   Foreground="{Binding ForegroundBrush}"
+                                   Background="{Binding Word.FamiliarityLevel, Converter={StaticResource FamiliarityToGradientBrushConverter}}"
                                    Cursor="Hand"
                                    PointerPressed="InputElement_OnPointerPressed"/>
                     </DataTemplate>
