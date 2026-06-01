@@ -76,16 +76,16 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                 },
             });
 
-            if (words.Last() != word)
-            {
-                Words.Add(new WordEntry
-                {
-                    Word = new Word { Text = " ", FamiliarityLevel = WordFamiliarityLevel.WellKnown},
-                    //BackgroundBrush = new SolidColorBrush(backgroundColour),
-                    //ForegroundBrush = new SolidColorBrush(foregroundColour),
-                    IsSpace = true,
-                });
-            }
+            //if (words.Last() != word)
+            //{
+            //    Words.Add(new WordEntry
+            //    {
+            //        Word = new Word { Text = " ", FamiliarityLevel = WordFamiliarityLevel.WellKnown},
+            //        //BackgroundBrush = new SolidColorBrush(backgroundColour),
+            //        //ForegroundBrush = new SolidColorBrush(foregroundColour),
+            //        IsSpace = true,
+            //    });
+            //}
         }
     }
 

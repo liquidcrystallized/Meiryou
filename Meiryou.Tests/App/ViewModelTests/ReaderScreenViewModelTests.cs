@@ -44,23 +44,23 @@ public class ReaderScreenViewModelTests
         }
     }
     
-    [Test]
-    public void SelectWordCommand_DoesNotSelectSpaceEntries()
-    {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
-        
-        var spaceEntry = vm.Words.FirstOrDefault(w => w.IsSpace);
-        Assert.That(spaceEntry, Is.Not.Null);
-        
-        vm.SelectedWordCommand.Execute(spaceEntry).Subscribe();
-        
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(vm.SelectedWord, Is.Null);
-            Assert.That(vm.IsPopupVisible, Is.False);
-        }
-    }
+    //[Test]
+    //public void SelectWordCommand_DoesNotSelectSpaceEntries()
+    //{
+    //    var vm = new ReaderScreenViewModel();
+    //    vm.AddRandomTextCommand.Execute().Subscribe();
+    //    
+    //    var spaceEntry = vm.Words.FirstOrDefault(w => w.IsSpace);
+    //    Assert.That(spaceEntry, Is.Not.Null);
+    //    
+    //    vm.SelectedWordCommand.Execute(spaceEntry).Subscribe();
+    //    
+    //    using (Assert.EnterMultipleScope())
+    //    {
+    //        Assert.That(vm.SelectedWord, Is.Null);
+    //        Assert.That(vm.IsPopupVisible, Is.False);
+    //    }
+    //}
     
     [Test]
     public void SelectWordCommand_TogglesPopupOnSubsequentClicks()
