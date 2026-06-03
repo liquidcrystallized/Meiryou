@@ -5,6 +5,7 @@ public class ReadingContentWord
     public int ReadingContentId { get; set; }
     public int WordId { get; set; }
     public int OccurenceCount { get; set; } = 1;
+    public string? ContextSentence { get; set; }
     
     // EF Core navigation properties.
     public ReadingContent ReadingContent { get; set; } = null!;

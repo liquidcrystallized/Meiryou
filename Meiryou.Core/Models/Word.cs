@@ -13,4 +13,5 @@ public class Word
     
     // EF Core navigation properties.
     public ICollection<ReadingContentWord> ReadingContentWords { get; set; } = new List<ReadingContentWord>();
+    public ICollection<SentenceContext> SentenceContexts { get; set; } = new List<SentenceContext>();
 }
