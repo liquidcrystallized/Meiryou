@@ -26,7 +26,6 @@ public class MeiryouDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Text).IsRequired().HasMaxLength(64); // Note sure what the longest word in Japanese is, but this should be enough.
-            entity.Property(e => e.Definition).HasMaxLength(-1);
             entity.Property(e => e.PartOfSpeech).HasMaxLength(64);
             entity.HasIndex(e => e.Text).IsUnique();
         });
