@@ -2,7 +2,6 @@ using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Meiryou.Extensions;
 using Meiryou.ViewModels;
 using Meiryou.Views;
 using Microsoft.Extensions.DependencyInjection;
