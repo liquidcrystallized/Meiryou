@@ -17,7 +17,7 @@ public class TextImportServiceTests
             .Options;
         
         _context = new MeiryouDbContext(options);
-        _service = new TextImportService();
+        _service = new TextImportService(_context);
     }
 
     [TearDown]
@@ -33,7 +33,7 @@ public class TextImportServiceTests
         const string title = "Test content";
         const string content = "This is some stuff you're supposed to read";
 
-        await _service.ImportTextAsync(title, content, _context);
+        await _service.ImportTextAsync(title, content);
         var readingContent = await _context.ReadingContents.FirstOrDefaultAsync(rc => rc.Title == title);
         
         Assert.That(readingContent, Is.Not.Null);

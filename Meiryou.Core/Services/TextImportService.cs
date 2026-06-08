@@ -5,7 +5,14 @@ namespace Meiryou.Core.Services;
 
 public class TextImportService : ITextImportService
 {
-    public async Task ImportTextAsync(string title, string content, MeiryouDbContext context)
+    private readonly MeiryouDbContext _context;
+
+    public TextImportService(MeiryouDbContext context)
+    {
+        _context = context;
+    }
+    
+    public async Task ImportTextAsync(string title, string content)
     {
         var readingContent = new ReadingContent
         {
@@ -15,9 +22,7 @@ public class TextImportService : ITextImportService
             UpdatedAt = DateTime.UtcNow
         };
 
-        context.ReadingContents.Add(readingContent);
-        await context.SaveChangesAsync();
-        
-        //TODO: Japanese text parsing.
+        _context.ReadingContents.Add(readingContent);
+        await _context.SaveChangesAsync();
     }
 }
