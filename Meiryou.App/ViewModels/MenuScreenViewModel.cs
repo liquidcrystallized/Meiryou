@@ -1,6 +1,7 @@
 using System;
 using System.Reactive;
 using ReactiveUI;
+using Splat;
 
 namespace Meiryou.ViewModels;
 
@@ -23,15 +24,15 @@ public class MenuScreenViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screen;
 
         NavigateToLibraryCommand = ReactiveCommand.CreateFromObservable(
-            () => HostScreen.Router.Navigate.Execute(new LibraryScreenViewModel())
+            () => HostScreen.Router.Navigate.Execute(Locator.Current.GetService<LibraryScreenViewModel>() ?? throw new InvalidOperationException())
         );
         
         NavigateToSettingsCommand = ReactiveCommand.CreateFromObservable(
-            () => HostScreen.Router.Navigate.Execute(new SettingsScreenViewModel())
+            () => HostScreen.Router.Navigate.Execute(Locator.Current.GetService<SettingsScreenViewModel>() ?? throw new InvalidOperationException())
         );
 
         NavigateToReaderCommand = ReactiveCommand.CreateFromObservable(
-            () => HostScreen.Router.Navigate.Execute(new ReaderScreenViewModel())
+            () => HostScreen.Router.Navigate.Execute(Locator.Current.GetService<ReaderScreenViewModel>() ?? throw new InvalidOperationException())
         );
     }
 }
