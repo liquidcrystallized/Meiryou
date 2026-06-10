@@ -48,6 +48,16 @@ sealed class Program
                 },
                 withResolver: sp =>
                 {
-                    // Optional: access ServiceProvider
+                    if (sp != null)
+                    {
+                        using var scope = sp.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<MeiryouDbContext>();
+
+                        context.Database.EnsureCreated();
+                    }
+                    else
+                    {
+                        throw new ArgumentNullException(nameof(sp), "The service provider is null.");
+                    }
                 });
 }
