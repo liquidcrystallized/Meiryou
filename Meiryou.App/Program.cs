@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using ReactiveUI.Avalonia;
 using ReactiveUI.Avalonia.Splat;
 using System;
 using Meiryou.Core.Data;
@@ -8,7 +7,6 @@ using Meiryou.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using Splat;
 
 namespace Meiryou;
 
@@ -36,11 +34,11 @@ sealed class Program
                     services.AddScoped<ITextImportService, TextImportService>();
                     services.AddScoped<IReadingContentService, ReadingContentService>();
 
-                    services.AddScoped<MainWindowViewModel>();
-                    services.AddScoped<MenuScreenViewModel>();
-                    services.AddScoped<LibraryScreenViewModel>();
-                    services.AddScoped<ReaderScreenViewModel>();
-                    services.AddScoped<SettingsScreenViewModel>();
+                    services.AddSingleton<MainWindowViewModel>();
+                    services.AddTransient<MenuScreenViewModel>();
+                    services.AddTransient<LibraryScreenViewModel>();
+                    services.AddTransient<ReaderScreenViewModel>();
+                    services.AddTransient<SettingsScreenViewModel>();
 
                     services.AddSingleton<IViewLocator, ViewLocator>();
                     
