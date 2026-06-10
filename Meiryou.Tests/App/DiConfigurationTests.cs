@@ -28,11 +28,11 @@ public class DiConfigurationTests
         services.AddScoped<ITextImportService, TextImportService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
 
-        services.AddScoped<MainWindowViewModel>();
-        services.AddScoped<MenuScreenViewModel>();
-        services.AddScoped<LibraryScreenViewModel>();
-        services.AddScoped<ReaderScreenViewModel>();
-        services.AddScoped<SettingsScreenViewModel>();
+        services.AddSingleton<MainWindowViewModel>();
+        services.AddTransient<MenuScreenViewModel>();
+        services.AddTransient<LibraryScreenViewModel>();
+        services.AddTransient<ReaderScreenViewModel>();
+        services.AddTransient<SettingsScreenViewModel>();
 
         services.AddSingleton<IScreen, MockScreen>();
         services.AddSingleton<IViewLocator, ViewLocator>();
