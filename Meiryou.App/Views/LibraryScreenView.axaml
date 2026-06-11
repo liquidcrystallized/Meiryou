@@ -3,24 +3,56 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Meiryou.ViewModels"
+             xmlns:models="clr-namespace:Meiryou.Core.Models;assembly=Meiryou.Core"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:CompileBindings="True"
              x:Class="Meiryou.Views.LibraryScreenView"
              x:DataType="vm:LibraryScreenViewModel">
     
-    <StackPanel VerticalAlignment="Center" Spacing="5" MaxWidth="350">
-        <TextBlock VerticalAlignment="Center"
-                   FontSize="16"
-                   FontWeight="SemiBold"
-                   Text="LibraryScreenView"
-                   TextAlignment="Center"
-                   TextWrapping="Wrap"/>
+    <Grid RowDefinitions="Auto,*,Auto">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="10">
+            <TextBlock Text="Library" 
+                       FontSize="24" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <Button Command="{Binding ImportTextCommand}"
+                    Content="Import Text"
+                    Width="120"/>
+        </StackPanel>
         
-        <TextBlock VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   FontSize="16"
-                   Text="{Binding UrlPathSegment}"
-                   TextWrapping="Wrap"/>
-    </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Contents}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:ReadingContent">
+                        <Border Padding="10"
+                                Margin="5"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="5">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding CreatedAt, StringFormat='{}{0:yyyy-MM-dd}'}"
+                                           FontSize="12"
+                                           Foreground="Gray"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    
+        <UniformGrid Grid.Row="2" Rows="1" Columns="1" DockPanel.Dock="Bottom">
+            <TextBlock FontSize="16" 
+                       Text="{Binding UrlPathSegment}" 
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </UniformGrid>
+    </Grid>
     
 </UserControl>
