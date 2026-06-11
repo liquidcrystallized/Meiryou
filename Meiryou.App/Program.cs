@@ -27,7 +27,7 @@ sealed class Program
                 services =>
                 {
                     services.AddDbContext<MeiryouDbContext>(options =>
-                        options.UseSqlite("Data Source=meiryou.db"));
+                        options.UseSqlite("Data Source=Meiryou.db"));
 
                     services.AddCommonServices();
                 },
