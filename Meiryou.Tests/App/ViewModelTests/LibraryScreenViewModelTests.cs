@@ -1,7 +1,7 @@
 using System.Reactive.Threading.Tasks;
 using Meiryou.Core.Data;
 using Meiryou.Core.Models;
-using Meiryou.Core.Services;
+using Meiryou.Extensions;
 using Meiryou.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,19 +28,8 @@ public class LibraryScreenViewModelTests
         services.AddDbContext<MeiryouDbContext>(options =>
             options.UseInMemoryDatabase(databaseName: "TestDb"));
 
-        services.AddScoped<ITextImportService, TextImportService>();
-        services.AddScoped<IReadingContentService, ReadingContentService>();
-
-        services.AddSingleton<MainWindowViewModel>();
-        services.AddTransient<MenuScreenViewModel>();
-        services.AddTransient<LibraryScreenViewModel>();
-        services.AddTransient<ReaderScreenViewModel>();
-        services.AddTransient<SettingsScreenViewModel>();
-
         services.AddSingleton<IScreen, MockScreen>();
-        services.AddSingleton<IViewLocator, ViewLocator>();
-        
-        services.AddSingleton<IServiceProvider>(sp => sp);
+        services.AddCommonServices();
 
         _services = services.BuildServiceProvider();
         _context = _services.GetRequiredService<MeiryouDbContext>();
