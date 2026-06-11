@@ -1,5 +1,6 @@
 using System;
 using Meiryou.Core.Services;
+using Meiryou.Services;
 using Meiryou.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
@@ -10,6 +11,8 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCommonServices(this IServiceCollection services)
     {
+        services.AddTransient<IFilesService, FilesService>();
+        
         services.AddScoped<ITextImportService, TextImportService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
 
