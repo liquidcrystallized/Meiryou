@@ -1,55 +1,39 @@
 using System.Reactive.Threading.Tasks;
-using Meiryou.Core.Data;
+using Avalonia.Platform.Storage;
 using Meiryou.Core.Models;
-using Meiryou.Extensions;
+using Meiryou.Core.Services;
+using Meiryou.Services;
 using Meiryou.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using NSubstitute;
 using ReactiveUI;
 
 namespace Meiryou.Tests.UnitTests.App.ViewModels;
 
-public class MockScreen : IScreen
-{
-    public RoutingState Router { get; } = new();
-}
-
 public class LibraryScreenViewModelTests
 {
-    private IServiceProvider _services;
-    private MeiryouDbContext _context;
+    private IFilesService _mockFilesService;
+    private IReadingContentService _mockReadingContentService;
+    private ITextImportService _mockTextImportService;
     private LibraryScreenViewModel _viewModel;
 
     [SetUp]
     public void SetUp()
     {
-        var services = new ServiceCollection();
-        
-        services.AddDbContext<MeiryouDbContext>(options =>
-            options.UseInMemoryDatabase(databaseName: "TestDb"));
+        _mockFilesService = Substitute.For<IFilesService>();
+        _mockReadingContentService = Substitute.For<IReadingContentService>();
+        _mockTextImportService = Substitute.For<ITextImportService>();
 
-        services.AddSingleton<IScreen, MockScreen>();
-        services.AddCommonServices();
-
-        _services = services.BuildServiceProvider();
-        _context = _services.GetRequiredService<MeiryouDbContext>();
-        _viewModel = _services.GetRequiredService<LibraryScreenViewModel>();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _context.Database.EnsureDeleted();
-        _context.Dispose();
-        if (_services is IDisposable disposable)
-        {
-            disposable.Dispose();
-        }
+        _viewModel = new LibraryScreenViewModel(
+            _mockFilesService,
+            _mockReadingContentService,
+            _mockTextImportService);
     }
 
     [Test]
     public void Constructor_InitialiseWithEmptyContents()
     {
+        _mockReadingContentService.GetAllContentsAsync().Returns(Task.FromResult<IEnumerable<ReadingContent>>([]));
+        
         Assert.That(_viewModel.Contents, Is.Not.Null);
         Assert.That(_viewModel.Contents, Is.Empty);
     }
@@ -65,26 +49,22 @@ public class LibraryScreenViewModelTests
     [Test]
     public async Task LoadContentsCommand_LoadsContentsFromService()
     {
-        await _context.ReadingContents.AddAsync(new ReadingContent
+        // Real service orders result by descending (newest content first).
+        var expectedContents = new List<ReadingContent>
         {
-            Title = "Test Content 1",
-            Content = "This is test content 1",
-            CreatedAt = DateTime.UtcNow
-        });
-        await _context.ReadingContents.AddAsync(new ReadingContent
-        {
-            Title = "Test Content 2",
-            Content = "This is test content 2",
-            CreatedAt = DateTime.UtcNow
-        });
-        await _context.SaveChangesAsync();
+            new() { Title = "Test Content 2", Content = "This is test content 2", CreatedAt = DateTime.UtcNow },
+            new() { Title = "Test Content 1", Content = "This is test content 1", CreatedAt = DateTime.UtcNow }
+        }.AsReadOnly();
+
+        _mockReadingContentService.GetAllContentsAsync().Returns(Task.FromResult<IEnumerable<ReadingContent>>(expectedContents));
 
         await _viewModel.LoadContentsCommand.Execute().ToTask();
         
-        // Should be ordered by CreatedAt descending.
         Assert.That(_viewModel.Contents, Has.Count.EqualTo(2));
         Assert.That(_viewModel.Contents.First().Title, Is.EqualTo("Test Content 2"));
+        Assert.That(_viewModel.Contents.First().Content, Is.EqualTo("This is test content 2"));
         Assert.That(_viewModel.Contents.Last().Title, Is.EqualTo("Test Content 1"));
+        Assert.That(_viewModel.Contents.Last().Content, Is.EqualTo("This is test content 1"));
     }
 
     [Test]
@@ -116,6 +96,8 @@ public class LibraryScreenViewModelTests
     [Test]
     public async Task ImportTextCommand_SetsImportingStateCorrectly()
     {
+        _mockFilesService.OpenFileAsync().Returns(Task.FromResult<IStorageFile?>(null));
+        
         bool wasImporting = false;
         bool isImportingAfter = false;
 
