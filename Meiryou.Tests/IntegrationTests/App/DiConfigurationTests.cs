@@ -24,7 +24,7 @@ public class DiConfigurationTests
         var services = new ServiceCollection();
         
         services.AddDbContext<MeiryouDbContext>(options =>
-            options.UseInMemoryDatabase(databaseName: "TestDb"));
+            options.UseSqlite("DataSource=:memory:"));
 
         services.AddSingleton<IScreen, MockScreen>();
         services.AddCommonServices();
