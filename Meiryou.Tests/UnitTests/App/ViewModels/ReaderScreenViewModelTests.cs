@@ -1,6 +1,6 @@
 using Meiryou.ViewModels;
 
-namespace Meiryou.Tests.App.ViewModelTests;
+namespace Meiryou.Tests.UnitTests.App.ViewModels;
 
 [TestFixture]
 public class ReaderScreenViewModelTests

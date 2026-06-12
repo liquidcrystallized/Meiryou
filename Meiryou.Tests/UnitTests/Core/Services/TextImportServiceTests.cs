@@ -2,7 +2,7 @@ using Meiryou.Core.Data;
 using Meiryou.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Meiryou.Tests.Core.ServiceTests;
+namespace Meiryou.Tests.UnitTests.Core.Services;
 
 public class TextImportServiceTests
 {

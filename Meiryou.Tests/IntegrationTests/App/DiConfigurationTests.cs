@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 
-namespace Meiryou.Tests.App;
+namespace Meiryou.Tests.IntegrationTests.App;
 
 public class MockScreen : IScreen
 {

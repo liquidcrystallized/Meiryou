@@ -3,7 +3,7 @@ using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
-namespace Meiryou.Tests.Core.ServiceTests;
+namespace Meiryou.Tests.UnitTests.Core.Services;
 
 //TODO: Some tests are currently commented out as functionality "works" and passes but technically not complete.
 [TestFixture]

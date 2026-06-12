@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 
-namespace Meiryou.Tests.App.ViewModelTests;
+namespace Meiryou.Tests.UnitTests.App.ViewModels;
 
 public class MockScreen : IScreen
 {
