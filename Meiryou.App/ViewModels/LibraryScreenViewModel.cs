@@ -1,9 +1,14 @@
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Net;
 using System.Reactive;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Meiryou.Core.Models;
 using Meiryou.Core.Services;
+using Meiryou.Services;
 using ReactiveUI;
 using Splat;
 
@@ -35,13 +40,15 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
 
     public ReactiveCommand<Unit, Unit> LoadContentsCommand { get; }
     public ReactiveCommand<Unit, Unit> ImportTextCommand { get; }
-    
+
+    private readonly IFilesService _filesService;
     private readonly IReadingContentService _readingContentService;
     private readonly ITextImportService _textImportService;
 
-    public LibraryScreenViewModel(IReadingContentService readingContentService, ITextImportService textImportService)
+    public LibraryScreenViewModel(IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
     {
-        _readingContentService = readingContentService ?? throw  new ArgumentNullException(nameof(readingContentService));
+        _filesService = filesService ?? throw new ArgumentNullException(nameof(filesService));
+        _readingContentService = readingContentService ?? throw new ArgumentNullException(nameof(readingContentService));
         _textImportService = textImportService ?? throw new ArgumentNullException(nameof(textImportService));
 
         LoadContentsCommand = ReactiveCommand.CreateFromTask(LoadContentsAsync);
@@ -69,16 +76,27 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
-    //TODO: Maybe have an option to import a file OR a textbox where a user can copy text(?).
+    //TODO: Maybe have an option for a textbox where a user can copy text(?).
+    // Should probably split the file picking/text copy/import from the actual import to
+    // database stuff.
     private async Task ImportTextAsync()
     {
-        //TODO: Show file picker or something.
-        // Placeholder for now.
         IsImportingText = true;
         try
         {
-            //TODO: Another placeholder, do this when the file picker exists or something.
-            await Task.Delay(100);
+            var file = await _filesService.OpenFileAsync();
+            if (file is null)
+            {
+                return;
+            }
+            
+            await using var readStream = await file.OpenReadAsync();
+            using var reader = new StreamReader(readStream);
+
+            var contentTitle = Path.GetFileNameWithoutExtension(file.Name);
+            await _textImportService.ImportTextAsync(contentTitle, await reader.ReadToEndAsync());
+
+            _ = LoadContentsAsync();
         }
         finally
         {
