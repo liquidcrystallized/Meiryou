@@ -16,10 +16,12 @@ public class ReadingContentServiceTests
     public void SetUp()
     {
         var options = new DbContextOptionsBuilder<MeiryouDbContext>()
-            .UseInMemoryDatabase(databaseName: "TestDb")
+            .UseSqlite("DataSource=:memory:")
             .Options;
         
         _context = new MeiryouDbContext(options);
+        _context.Database.OpenConnection();
+        _context.Database.EnsureCreated();
         _service = new ReadingContentService(_context);
     }
 
