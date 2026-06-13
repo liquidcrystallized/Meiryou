@@ -45,8 +45,9 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
     private readonly IReadingContentService _readingContentService;
     private readonly ITextImportService _textImportService;
 
-    public LibraryScreenViewModel(IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
+    public LibraryScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
     {
+        HostScreen = screen;
         _filesService = filesService ?? throw new ArgumentNullException(nameof(filesService));
         _readingContentService = readingContentService ?? throw new ArgumentNullException(nameof(readingContentService));
         _textImportService = textImportService ?? throw new ArgumentNullException(nameof(textImportService));

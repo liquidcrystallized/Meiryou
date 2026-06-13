@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ITextImportService, TextImportService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
 
+        services.AddSingleton<IScreen, MainWindowViewModel>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddTransient<MenuScreenViewModel>();
         services.AddTransient<LibraryScreenViewModel>();

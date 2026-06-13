@@ -1,5 +1,7 @@
-﻿using System.Reactive;
+﻿using System;
+using System.Reactive;
 using ReactiveUI;
+using Splat;
 
 namespace Meiryou.ViewModels;
 
@@ -13,7 +15,7 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public MainWindowViewModel()
     {
         NavigateNextCommand = ReactiveCommand.CreateFromObservable(
-            () => Router.Navigate.Execute(new MenuScreenViewModel(this))
+            () => Router.Navigate.Execute(Locator.Current.GetService<LibraryScreenViewModel>() ?? throw new InvalidOperationException())
         );
     }
 }
