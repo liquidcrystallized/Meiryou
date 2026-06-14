@@ -60,12 +60,14 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
 
     public ReactiveCommand<Unit, Unit> AddRandomTextCommand { get; }
     public ReactiveCommand<Unit, Unit> ClosePopupCommand { get; }
+    public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
 
     public ReaderScreenViewModel()
     {
         AddRandomTextCommand = ReactiveCommand.Create(AddRandomText);
         ClosePopupCommand = ReactiveCommand.Create(ClosePopup);
+        NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWord);
         
         //TODO: Remove later, just some content for immediate visualisation.
@@ -129,6 +131,11 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         var randomIndex = random.Next(levels.Length);
 
         return levels[randomIndex];
+    }
+
+    private void NavigateBack()
+    {
+        HostScreen.Router.NavigateBack.Execute();
     }
 
     private void SelectWord(WordEntry? word)

@@ -12,7 +12,7 @@
     <Grid RowDefinitions="Auto,*,Auto,Auto">
         <UniformGrid Grid.Row="0" Rows="1" Columns="3" DockPanel.Dock="Top">
             <!-- Not sure if having buttons here is good ui, but it's okay for testing for now. -->
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center">Back</Button>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding NavigateBackCommand}">Back</Button>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">ReaderScreenView</TextBlock>
             <Button HorizontalAlignment="Center" VerticalAlignment="Center"
                     Command="{Binding AddRandomTextCommand}">Add Random Text</Button>
