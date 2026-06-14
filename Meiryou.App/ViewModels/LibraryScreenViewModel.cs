@@ -107,6 +107,7 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
         var readerViewModel = Locator.Current.GetService<ReaderScreenViewModel>();
         if (readerViewModel != null)
         {
+            readerViewModel.HostScreen = HostScreen;
             readerViewModel.LoadContent(content);
             await HostScreen.Router.Navigate.Execute(readerViewModel);
         }
