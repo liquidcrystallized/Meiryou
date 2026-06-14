@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
 using Meiryou.Core.Models;
 using ReactiveUI;
@@ -10,34 +9,6 @@ namespace Meiryou.ViewModels;
 
 public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
 {
-    public string Title => "ReaderScreenViewModel";
-    public IScreen HostScreen { get; set; }
-    public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
-
-    public ObservableCollection<WordEntry> Words { get; } = [];
-
-    public ReadingContent? CurrentContent
-    {
-        get;
-        set => this.RaiseAndSetIfChanged(ref field, value);
-    }
-
-    public WordEntry? SelectedWord
-    {
-        get;
-        set => this.RaiseAndSetIfChanged(ref field, value);
-    }
-
-    public bool IsPopupVisible
-    {
-        get;
-        set => this.RaiseAndSetIfChanged(ref field, value);
-    }
-
-    public ReactiveCommand<Unit, Unit> AddRandomTextCommand { get; }
-    public ReactiveCommand<Unit, Unit> ClosePopupCommand { get; }
-    public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
-    
     //TODO: Just for testing.
     private readonly Dictionary<string, Word> _mockDictionary = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -62,6 +33,34 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         { "なら", new Word { Definition = "Definition", PartOfSpeech = "?", FrequencyRank = 1, FamiliarityLevel = GenerateRandomLevel() } },
         { "弾いてみなさい", new Word { Definition = "Definition", PartOfSpeech = "?", FrequencyRank = 1, FamiliarityLevel = GenerateRandomLevel() } }
     };
+    
+    public IScreen HostScreen { get; set; }
+    public ObservableCollection<WordEntry> Words { get; } = [];
+
+    public ReadingContent? CurrentContent
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+    
+    public bool IsPopupVisible
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+
+    public WordEntry? SelectedWord
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+    
+    public string Title => "ReaderScreenViewModel";
+    public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
+
+    public ReactiveCommand<Unit, Unit> AddRandomTextCommand { get; }
+    public ReactiveCommand<Unit, Unit> ClosePopupCommand { get; }
+    public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
 
     public ReaderScreenViewModel()
     {
@@ -115,6 +114,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
             //}
         }
     }
+    
+    private void ClosePopup()
+    {
+        IsPopupVisible = false;
+        SelectedWord = null;
+    }
 
     //TODO: Only for testing.
     private static WordFamiliarityLevel GenerateRandomLevel()
@@ -124,12 +129,6 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         var randomIndex = random.Next(levels.Length);
 
         return levels[randomIndex];
-    }
-
-    private void ClosePopup()
-    {
-        IsPopupVisible = false;
-        SelectedWord = null;
     }
 
     private void SelectWord(WordEntry? word)
