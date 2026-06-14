@@ -16,6 +16,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
 
     public ObservableCollection<WordEntry> Words { get; } = [];
 
+    public ReadingContent? CurrentContent
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+
     public WordEntry? SelectedWord
     {
         get;
@@ -65,6 +71,13 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         
         //TODO: Remove later, just some content for immediate visualisation.
         AddRandomText();
+    }
+
+    public void LoadContent(ReadingContent content)
+    {
+        CurrentContent = content;
+        
+        //TODO: Tokenize and stuff.
     }
 
     //TODO: Temporary, remove/change later.
