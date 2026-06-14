@@ -16,12 +16,10 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
     public MainWindowViewModel()
     {
-        NavigateNextCommand = ReactiveCommand.CreateFromObservable(
-            () => Router.Navigate.Execute(new LibraryScreenViewModel(
-                this,
-                Locator.Current.GetService<IFilesService>() ?? throw new InvalidOperationException(),
-                Locator.Current.GetService<IReadingContentService>() ?? throw new InvalidOperationException(),
-                Locator.Current.GetService<ITextImportService>() ?? throw new InvalidOperationException()))
-        );
+        Router.Navigate.Execute(new LibraryScreenViewModel(
+            this,
+            Locator.Current.GetService<IFilesService>() ?? throw new InvalidOperationException(),
+            Locator.Current.GetService<IReadingContentService>() ?? throw new InvalidOperationException(),
+            Locator.Current.GetService<ITextImportService>() ?? throw new InvalidOperationException()));
     }
 }
