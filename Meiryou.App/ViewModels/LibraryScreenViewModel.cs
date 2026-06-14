@@ -51,8 +51,11 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
         ImportTextCommand = ReactiveCommand.CreateFromTask(ImportTextAsync);
         LoadContentsCommand = ReactiveCommand.CreateFromTask(LoadContentsAsync);
         SelectContentAndLoadReaderCommand = ReactiveCommand.CreateFromTask<ReadingContent>(SelectContentAndLoadReaderAsync);
+    }
 
-        _ = LoadContentsAsync();
+    public async Task InitialiseAsync()
+    {
+        await LoadContentsAsync();
     }
     
     //TODO: Maybe have an option for a textbox where a user can copy text(?).
