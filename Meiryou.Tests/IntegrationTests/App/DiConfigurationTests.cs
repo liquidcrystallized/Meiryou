@@ -83,7 +83,7 @@ public class DiConfigurationTests
         
         Assert.That(viewModel, Is.Not.Null);
         Assert.That(viewModel, Is.InstanceOf<MenuScreenViewModel>());
-        Assert.That(viewModel.HostScreen, Is.InstanceOf<MockScreen>());
+        Assert.That(viewModel.HostScreen, Is.InstanceOf<IScreen>());
     }
 
     [Test]
