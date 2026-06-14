@@ -1,9 +1,5 @@
-﻿using System;
-using System.Reactive;
-using Meiryou.Core.Services;
-using Meiryou.Services;
+﻿using System.Reactive;
 using ReactiveUI;
-using Splat;
 
 namespace Meiryou.ViewModels;
 
@@ -16,10 +12,6 @@ public class MainWindowViewModel : ReactiveObject, IScreen
 
     public MainWindowViewModel()
     {
-        Router.Navigate.Execute(new LibraryScreenViewModel(
-            this,
-            Locator.Current.GetService<IFilesService>() ?? throw new InvalidOperationException(),
-            Locator.Current.GetService<IReadingContentService>() ?? throw new InvalidOperationException(),
-            Locator.Current.GetService<ITextImportService>() ?? throw new InvalidOperationException()));
+        Router.Navigate.Execute(new SplashScreenViewModel(this));
     }
 }
