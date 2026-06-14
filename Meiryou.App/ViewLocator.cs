@@ -9,6 +9,7 @@ public class ViewLocator : IViewLocator
 {
     public IViewFor ResolveView<T>(T? viewModel, string? contract = null) => viewModel switch
     {
+        SplashScreenViewModel context => new SplashScreenView { DataContext =  context },
         MenuScreenViewModel context => new MenuScreenView { DataContext = context },
         LibraryScreenViewModel context => new LibraryScreenView { DataContext = context },
         SettingsScreenViewModel context => new SettingsScreenView { DataContext =  context },
