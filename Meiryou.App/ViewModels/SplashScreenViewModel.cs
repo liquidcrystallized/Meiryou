@@ -31,15 +31,15 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
     
     public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
 
-    public SplashScreenViewModel(IScreen screen)
+    public SplashScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
     {
         HostScreen = screen;
         IsLoading = true;
         StatusMessage = "Loading...";
-        
-        _filesService = Locator.Current.GetService<IFilesService>() ?? throw new InvalidOperationException("IFilesService not found");
-        _readingContentService = Locator.Current.GetService<IReadingContentService>() ?? throw new InvalidOperationException("IReadingContentService not found");
-        _textImportService = Locator.Current.GetService<ITextImportService>() ?? throw new InvalidOperationException("ITextImportService not found");
+       
+        _filesService = filesService;
+        _readingContentService = readingContentService;
+        _textImportService = textImportService;
         
         _ = InitialiseAsync();
     }
