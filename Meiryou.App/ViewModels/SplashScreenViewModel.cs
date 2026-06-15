@@ -13,7 +13,6 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly IFilesService _filesService;
     private readonly IReadingContentService _readingContentService;
-    private readonly ITextImportService _textImportService;
     
     public IScreen HostScreen { get; set; }
     
@@ -31,7 +30,7 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
     
     public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
 
-    public SplashScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
+    public SplashScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService)
     {
         HostScreen = screen;
         IsLoading = true;
@@ -39,14 +38,13 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
        
         _filesService = filesService;
         _readingContentService = readingContentService;
-        _textImportService = textImportService;
         
         _ = InitialiseAsync();
     }
 
     private async Task InitialiseAsync()
     {
-        var libraryViewModel = new LibraryScreenViewModel(HostScreen, _filesService, _readingContentService, _textImportService);
+        var libraryViewModel = new LibraryScreenViewModel(HostScreen, _filesService, _readingContentService);
 
         if (libraryViewModel is null)
         {

@@ -16,7 +16,6 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly IFilesService _filesService;
     private readonly IReadingContentService _readingContentService;
-    private readonly ITextImportService _textImportService;
     
     public ObservableCollection<ReadingContent> Contents { get; } = [];
     public IScreen HostScreen { get; set; }
@@ -41,12 +40,11 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> LoadContentsCommand { get; }
     public ReactiveCommand<ReadingContent, Unit> SelectContentAndLoadReaderCommand { get; }
 
-    public LibraryScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService, ITextImportService textImportService)
+    public LibraryScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService)
     {
         HostScreen = screen;
         _filesService = filesService ?? throw new ArgumentNullException(nameof(filesService));
         _readingContentService = readingContentService ?? throw new ArgumentNullException(nameof(readingContentService));
-        _textImportService = textImportService ?? throw new ArgumentNullException(nameof(textImportService));
 
         ImportTextCommand = ReactiveCommand.CreateFromTask(ImportTextAsync);
         LoadContentsCommand = ReactiveCommand.CreateFromTask(LoadContentsAsync);
@@ -76,7 +74,7 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
             using var reader = new StreamReader(readStream);
 
             var contentTitle = Path.GetFileNameWithoutExtension(file.Name);
-            await _textImportService.ImportTextAsync(contentTitle, await reader.ReadToEndAsync());
+            await _readingContentService.AddContentAsync(contentTitle, await reader.ReadToEndAsync());
 
             _ = LoadContentsAsync();
         }

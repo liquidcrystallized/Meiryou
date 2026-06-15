@@ -14,7 +14,6 @@ public class LibraryScreenViewModelTests
     private IScreen _mockScreen;
     private IFilesService _mockFilesService;
     private IReadingContentService _mockReadingContentService;
-    private ITextImportService _mockTextImportService;
     private LibraryScreenViewModel _viewModel;
 
     [SetUp]
@@ -23,13 +22,11 @@ public class LibraryScreenViewModelTests
         _mockScreen = Substitute.For<IScreen>();
         _mockFilesService = Substitute.For<IFilesService>();
         _mockReadingContentService = Substitute.For<IReadingContentService>();
-        _mockTextImportService = Substitute.For<ITextImportService>();
 
         _viewModel = new LibraryScreenViewModel(
             _mockScreen,
             _mockFilesService,
-            _mockReadingContentService,
-            _mockTextImportService);
+            _mockReadingContentService);
     }
 
     [Test]

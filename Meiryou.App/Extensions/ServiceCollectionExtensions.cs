@@ -13,7 +13,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<IFilesService, FilesService>();
         
-        services.AddScoped<ITextImportService, TextImportService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
 
         services.AddSingleton<IScreen, MainWindowViewModel>();

@@ -50,15 +50,6 @@ public class DiConfigurationTests
     }
 
     [Test]
-    public void TextImportService_ShouldBeResolvable()
-    {
-        var service = _services.GetService<ITextImportService>();
-        
-        Assert.That(service, Is.Not.Null);
-        Assert.That(service, Is.InstanceOf<ITextImportService>());
-    }
-
-    [Test]
     public void ReadingContentService_ShouldBeResolvable()
     {
         var service = _services.GetService<IReadingContentService>();
