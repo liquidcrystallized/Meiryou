@@ -29,7 +29,7 @@ public class ReadingContentService : IReadingContentService
     }
 
     //TODO: Content string splitting to add as individual words.
-    public async Task<ReadingContent> AddContentAsync(string title, string content)
+    public async Task<ReadingContent> ImportContentAsync(string title, string content)
     {
         var readingContent = new ReadingContent
         {

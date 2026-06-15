@@ -74,7 +74,7 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
             using var reader = new StreamReader(readStream);
 
             var contentTitle = Path.GetFileNameWithoutExtension(file.Name);
-            await _readingContentService.AddContentAsync(contentTitle, await reader.ReadToEndAsync());
+            await _readingContentService.ImportContentAsync(contentTitle, await reader.ReadToEndAsync());
 
             _ = LoadContentsAsync();
         }

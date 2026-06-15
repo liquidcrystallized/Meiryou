@@ -43,8 +43,8 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetAllContentsAsync_ShouldReturnAllContents()
     {
-        await _service.AddContentAsync("Content 1", "Text 1");
-        await _service.AddContentAsync("Content 2", "Text 2");
+        await _service.ImportContentAsync("Content 1", "Text 1");
+        await _service.ImportContentAsync("Content 2", "Text 2");
 
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
@@ -56,9 +56,9 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetAllContentsAsync_ShouldOrderDescendingByCreatedAt()
     {
-        await _service.AddContentAsync("Old Content", "Text");
+        await _service.ImportContentAsync("Old Content", "Text");
         await Task.Delay(10);
-        await _service.AddContentAsync("New Content", "Text");
+        await _service.ImportContentAsync("New Content", "Text");
 
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
@@ -73,7 +73,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetContentByIdAsync_ShouldReturnContent_WhenFound()
     {
-        var content = await _service.AddContentAsync("Test Content", "Test Text");
+        var content = await _service.ImportContentAsync("Test Content", "Test Text");
 
         var result = await _service.GetContentByIdAsync(content.Id);
 
@@ -112,19 +112,19 @@ public class ReadingContentServiceTests
     //}
 
     [Test]
-    public async Task AddContentAsync_ShouldAddContent_AndReturnEntityWithId()
+    public async Task ImportContentAsync_ShouldAddContent_AndReturnEntityWithId()
     {
-        var result = await _service.AddContentAsync("New Content", "New Text");
+        var result = await _service.ImportContentAsync("New Content", "New Text");
 
         Assert.That(result.Id, Is.GreaterThan(0));
         Assert.That(_context.ReadingContents.Any(c => c.Id == result.Id), Is.True);
     }
 
     [Test]
-    public async Task AddContentAsync_ShouldSetTimestamps()
+    public async Task ImportContentAsync_ShouldSetTimestamps()
     {
         var beforeAdd = DateTime.UtcNow;
-        var result = await _service.AddContentAsync("Timestamp Test", "Text");
+        var result = await _service.ImportContentAsync("Timestamp Test", "Text");
         var afterAdd = DateTime.UtcNow;
 
         Assert.That(result.CreatedAt, Is.GreaterThanOrEqualTo(beforeAdd));
@@ -134,9 +134,9 @@ public class ReadingContentServiceTests
     }
 
     [Test]
-    public async Task AddContentAsync_ShouldHandleEmptyContent()
+    public async Task ImportContentAsync_ShouldHandleEmptyContent()
     {
-        await _service.AddContentAsync("Empty Content", "");
+        await _service.ImportContentAsync("Empty Content", "");
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
 
@@ -144,9 +144,9 @@ public class ReadingContentServiceTests
     }
 
     [Test]
-    public async Task AddContentAsync_ShouldHandleEmptyTitle()
+    public async Task ImportContentAsync_ShouldHandleEmptyTitle()
     {
-       await _service.AddContentAsync("", "wow");
+       await _service.ImportContentAsync("", "wow");
        var result = await _service.GetAllContentsAsync();
        var readingContents = result.ToList();
 
@@ -157,7 +157,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task DeleteContentAsync_ShouldDeleteExistingContent()
     {
-        var content = await _service.AddContentAsync("To Delete", "Text");
+        var content = await _service.ImportContentAsync("To Delete", "Text");
 
         await _service.DeleteContentAsync(content.Id);
 
@@ -167,7 +167,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task DeleteContentAsync_ShouldDoNothing_WhenNotFound()
     {
-        await _service.AddContentAsync("Keep This", "Text");
+        await _service.ImportContentAsync("Keep This", "Text");
 
         await _service.DeleteContentAsync(999); // Non-existent ID
 
@@ -177,7 +177,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task DeleteContentAsync_ShouldCascadeDeleteRelationships()
     {
-        var content = await _service.AddContentAsync("Cascade Test", "Text");
+        var content = await _service.ImportContentAsync("Cascade Test", "Text");
         var word = await _service.GetOrCreateWordAsync("cascade");
         
         _context.ReadingContentWords.Add(new ReadingContentWord
@@ -195,7 +195,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetWordsInContentAsync_ShouldReturnWords_WhenAssociated()
     {
-        var content = await _service.AddContentAsync("Words Test", "Text");
+        var content = await _service.ImportContentAsync("Words Test", "Text");
         var word1 = await _service.GetOrCreateWordAsync("word1");
         var word2 = await _service.GetOrCreateWordAsync("word2");
 
@@ -214,7 +214,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetWordsInContentAsync_ShouldReturnEmpty_WhenNoWordsAssociated()
     {
-        var content = await _service.AddContentAsync("Empty Words", "Text");
+        var content = await _service.ImportContentAsync("Empty Words", "Text");
 
         var result = await _service.GetWordsInContentAsync(content.Id);
 
