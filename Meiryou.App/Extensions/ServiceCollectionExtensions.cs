@@ -13,7 +13,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddTransient<IFilesService, FilesService>();
         
+        services.AddScoped<IContentWordService, ContentWordService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
+        services.AddScoped<IWordService, WordService>();
 
         services.AddSingleton<IScreen, MainWindowViewModel>();
         services.AddSingleton<MainWindowViewModel>();

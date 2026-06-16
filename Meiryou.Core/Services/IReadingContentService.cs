@@ -2,13 +2,14 @@ using Meiryou.Core.Models;
 
 namespace Meiryou.Core.Services;
 
+/// <summary>
+/// Manages content lifecycle of a piece of reading content. So basic deletion
+/// and import of whole texts into the application, and stuff managing it.
+/// </summary>
 public interface IReadingContentService
 {
     Task<IEnumerable<ReadingContent>> GetAllContentsAsync();
     Task<ReadingContent?> GetContentByIdAsync(int id);
     Task<ReadingContent> ImportContentAsync(string title, string content);
     Task DeleteContentAsync(int id);
-    Task<IEnumerable<Word>> GetWordsInContentAsync(int contentId);
-    Task<IEnumerable<SentenceContext>> GetSentenceContextsAsync(int wordId);
-    Task<Word?> GetOrCreateWordAsync(string text);
 }

@@ -1,11 +1,9 @@
 using Meiryou.Core.Data;
-using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Meiryou.Tests.UnitTests.Core.Services;
 
-//TODO: Some tests are currently commented out as functionality "works" and passes but technically not complete.
 [TestFixture]
 public class ReadingContentServiceTests
 {
@@ -90,27 +88,6 @@ public class ReadingContentServiceTests
         Assert.That(result, Is.Null);
     }
 
-    //[Test]
-    //public async Task GetContentByIdAsync_ShouldIncludeRelatedData()
-    //{
-    //    var content = await _service.AddContentAsync("Test Content", "Test Text");
-    //    var word = await _service.GetOrCreateWordAsync("test");
-    //    
-    //    // Manually add a relationship for testing Include
-    //    _context.ReadingContentWords.Add(new ReadingContentWord
-    //    {
-    //        ReadingContentId = content.Id,
-    //        WordId = word.Id,
-    //        OccurenceCount = 1
-    //    });
-    //    await _context.SaveChangesAsync();
-
-    //    var result = await _service.GetContentByIdAsync(content.Id);
-
-    //    Assert.That(result.ReadingContentWords, Is.Not.Empty);
-    //    Assert.That(result.ReadingContentWords.First().Word, Is.Not.Null);
-    //}
-
     [Test]
     public async Task ImportContentAsync_ShouldAddContent_AndReturnEntityWithId()
     {
@@ -172,125 +149,5 @@ public class ReadingContentServiceTests
         await _service.DeleteContentAsync(999); // Non-existent ID
 
         Assert.That(_context.ReadingContents.Any(), Is.True);
-    }
-
-    [Test]
-    public async Task DeleteContentAsync_ShouldCascadeDeleteRelationships()
-    {
-        var content = await _service.ImportContentAsync("Cascade Test", "Text");
-        var word = await _service.GetOrCreateWordAsync("cascade");
-        
-        _context.ReadingContentWords.Add(new ReadingContentWord
-        {
-            ReadingContentId = content.Id,
-            WordId = word.Id
-        });
-        await _context.SaveChangesAsync();
-
-        await _service.DeleteContentAsync(content.Id);
-
-        Assert.That(_context.ReadingContentWords.Any(rcw => rcw.ReadingContentId == content.Id), Is.False);
-    }
-
-    [Test]
-    public async Task GetWordsInContentAsync_ShouldReturnWords_WhenAssociated()
-    {
-        var content = await _service.ImportContentAsync("Words Test", "Text");
-        var word1 = await _service.GetOrCreateWordAsync("word1");
-        var word2 = await _service.GetOrCreateWordAsync("word2");
-
-        _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word1.Id });
-        _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word2.Id });
-        await _context.SaveChangesAsync();
-
-        var result = await _service.GetWordsInContentAsync(content.Id);
-        var listOfWords = result.ToList();
-        
-        Assert.That(listOfWords, Has.Count.EqualTo(2));
-        Assert.That(listOfWords.Select(w => w.Id), Does.Contain(word1.Id));
-        Assert.That(listOfWords.Select(w => w.Id), Does.Contain(word2.Id));
-    }
-
-    [Test]
-    public async Task GetWordsInContentAsync_ShouldReturnEmpty_WhenNoWordsAssociated()
-    {
-        var content = await _service.ImportContentAsync("Empty Words", "Text");
-
-        var result = await _service.GetWordsInContentAsync(content.Id);
-
-        Assert.That(result, Is.Empty);
-    }
-
-    //[Test]
-    //public async Task GetWordsInContentAsync_ShouldReturnDistinctWords()
-    //{
-    //    var content = await _service.AddContentAsync("Distinct Test", "Text");
-    //    var word = await _service.GetOrCreateWordAsync("common");
-
-    //    // Add same word twice
-    //    _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word.Id });
-    //    _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word.Id });
-    //    await _context.SaveChangesAsync();
-
-    //    var result = await _service.GetWordsInContentAsync(content.Id);
-    //    var readingContents = result.ToList();
-
-    //    Assert.That(readingContents, Has.Count.EqualTo(1));
-    //    Assert.That(readingContents.First().Id, Is.EqualTo(word.Id));
-    //}
-
-    //[Test]
-    //public async Task GetSentenceContextsAsync_ShouldReturnContexts_WhenExists()
-    //{
-    //    // Arrange
-    //    var word = await _service.GetOrCreateWordAsync("context");
-    //    _context.SentenceContexts.Add(new SentenceContext
-    //    {
-    //        WordId = word.Id,
-    //        Sentence = "This is a test sentence.",
-    //        ReadingContentId = 1
-    //    });
-    //    await _context.SaveChangesAsync();
-
-    //    // Act
-    //    var result = await _service.GetSentenceContextsAsync(word.Id);
-
-    //    // Assert
-    //    Assert.That(result, Is.Not.Empty);
-    //    Assert.That(result.First().Sentence, Is.EqualTo("This is a test sentence."));
-    //}
-
-    [Test]
-    public async Task GetOrCreateWordAsync_ShouldReturnExistingWord()
-    {
-        var existingWord = await _service.GetOrCreateWordAsync("existing");
-        var originalId = existingWord.Id;
-        var originalCreatedAt = existingWord.CreatedAt;
-
-        var result = await _service.GetOrCreateWordAsync("existing");
-
-        Assert.That(result.Id, Is.EqualTo(originalId));
-        Assert.That(result.CreatedAt, Is.EqualTo(originalCreatedAt));
-    }
-
-    [Test]
-    public async Task GetOrCreateWordAsync_ShouldCreateNewWord_WhenNotExists()
-    {
-        var result = await _service.GetOrCreateWordAsync("new-word");
-
-        Assert.That(result.Id, Is.GreaterThan(0));
-        Assert.That(result.Text, Is.EqualTo("new-word"));
-        Assert.That(_context.Words.Any(w => w.Id == result.Id), Is.True);
-    }
-
-    [Test]
-    public async Task GetOrCreateWordAsync_ShouldSetTimestamps_OnNewWord()
-    {
-        var before = DateTime.UtcNow;
-        var result = await _service.GetOrCreateWordAsync("timestamp-test");
-        var after = DateTime.UtcNow;
-
-        Assert.That(result.CreatedAt, Is.GreaterThanOrEqualTo(before));
-        Assert.That(result.CreatedAt, Is.LessThanOrEqualTo(after));
     }
 }

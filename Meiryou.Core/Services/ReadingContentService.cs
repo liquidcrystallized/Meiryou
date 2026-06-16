@@ -28,7 +28,6 @@ public class ReadingContentService : IReadingContentService
             .FirstOrDefaultAsync(rc => rc.Id == id);
     }
 
-    //TODO: Content string splitting to add as individual words.
     public async Task<ReadingContent> ImportContentAsync(string title, string content)
     {
         var readingContent = new ReadingContent
@@ -54,40 +53,5 @@ public class ReadingContentService : IReadingContentService
             _context.ReadingContents.Remove(content);
             await _context.SaveChangesAsync();
         }
-    }
-
-    public async Task<IEnumerable<Word>> GetWordsInContentAsync(int contentId)
-    {
-        return await _context.ReadingContentWords
-            .Where(rcw => rcw.ReadingContentId == contentId)
-            .Include(rcw => rcw.Word)
-            .Select(rcw => rcw.Word)
-            .Distinct()
-            .ToListAsync();
-    }
-
-    public Task<IEnumerable<SentenceContext>> GetSentenceContextsAsync(int wordId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Word?> GetOrCreateWordAsync(string text)
-    {
-        var word = await _context.Words.FirstOrDefaultAsync(w => w.Text == text);
-
-        if (word == null)
-        {
-            word = new Word
-            {
-                Text = text,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-
-            _context.Words.Add(word);
-            await _context.SaveChangesAsync();
-        }
-
-        return word;
     }
 }
