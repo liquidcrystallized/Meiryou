@@ -10,8 +10,6 @@ public class ContentWordServiceTests
 {
     private MeiryouDbContext _context;
     private ContentWordService _contentWordService;
-    private ReadingContentService _readingContentService;
-    private WordService _wordService;
 
     [SetUp]
     public void SetUp()
@@ -24,8 +22,6 @@ public class ContentWordServiceTests
         _context.Database.OpenConnection();
         _context.Database.EnsureCreated();
         
-        _readingContentService = new ReadingContentService(_context);
-        _wordService = new WordService(_context);
         _contentWordService = new ContentWordService(_context);
     }
 
@@ -39,9 +35,14 @@ public class ContentWordServiceTests
     [Test]
     public async Task GetWordsInContentAsync_ShouldReturnWords_WhenAssociated()
     {
-        var content = await _readingContentService.ImportContentAsync("Words Test", "Text");
-        var word1 = await _wordService.GetOrCreateWordAsync("word1");
-        var word2 = await _wordService.GetOrCreateWordAsync("word2");
+        var content = new ReadingContent { Id = 1, Title = "Words Test", Content = "Text" };
+        var word1 = new Word { Id = 1, Text = "word1" };
+        var word2 = new Word { Id = 2, Text = "word2" };
+
+        _context.ReadingContents.Add(content);
+        _context.Words.Add(word1);
+        _context.Words.Add(word2);
+        await _context.SaveChangesAsync();
 
         _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word1.Id });
         _context.ReadingContentWords.Add(new ReadingContentWord { ReadingContentId = content.Id, WordId = word2.Id });
@@ -58,7 +59,7 @@ public class ContentWordServiceTests
     [Test]
     public async Task GetWordsInContentAsync_ShouldReturnEmpty_WhenNoWordsAssociated()
     {
-        var content = await _readingContentService.ImportContentAsync("Empty Words", "Text");
+        var content = new ReadingContent { Id = 1, Title = "Empty Words", Content = "Text" };
 
         var result = await _contentWordService.GetWordsInContentAsync(content.Id);
 
