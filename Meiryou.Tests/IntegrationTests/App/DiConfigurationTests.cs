@@ -66,6 +66,15 @@ public class DiConfigurationTests
         Assert.That(viewModel, Is.Not.Null);
         Assert.That(viewModel, Is.InstanceOf<MainWindowViewModel>());
     }
+    
+    [Test]
+    public void SplashScreenViewModel_ShouldBeResolvable()
+    {
+        var viewModel = _services.GetService<SplashScreenViewModel>();
+        
+        Assert.That(viewModel, Is.Not.Null);
+        Assert.That(viewModel, Is.InstanceOf<SplashScreenViewModel>());
+    }
 
     [Test]
     public void LibraryScreenViewModel_ShouldBeResolvable()
@@ -107,6 +116,7 @@ public class DiConfigurationTests
     public void AllViewModels_ShouldHaveParameterlessConstructorOrDependenciesResolvable()
     {
         Assert.DoesNotThrow(() => _services.GetRequiredService<MainWindowViewModel>());
+        Assert.DoesNotThrow(() => _services.GetRequiredService<SplashScreenViewModel>());
         Assert.DoesNotThrow(() => _services.GetRequiredService<LibraryScreenViewModel>());
         Assert.DoesNotThrow(() => _services.GetRequiredService<ReaderScreenViewModel>());
         Assert.DoesNotThrow(() => _services.GetRequiredService<SettingsScreenViewModel>());
