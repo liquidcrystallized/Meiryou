@@ -33,6 +33,11 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
         _ = InitialiseAsync();
     }
 
+    /// <summary>
+    /// Preload/Initialise the library with content before routing to it. There is no way to know a user's storage
+    /// device speed which means loading may be slow, so it's better to stall on the splash screen till it's done.
+    /// Don't want the application to look frozen basically.
+    /// </summary>
     private async Task InitialiseAsync()
     {
         var libraryViewModel = new LibraryScreenViewModel(HostScreen);
