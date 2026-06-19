@@ -1,46 +1,54 @@
 using Meiryou.ViewModels;
+using NSubstitute;
+using ReactiveUI;
 
 namespace Meiryou.Tests.UnitTests.App.ViewModels;
 
 [TestFixture]
 public class ReaderScreenViewModelTests
 {
+    private IScreen _mockScreen;
+    private ReaderScreenViewModel _viewModel;
+    
+    [SetUp]
+    public void SetUp()
+    {
+        _mockScreen = Substitute.For<IScreen>();
+        _viewModel = new ReaderScreenViewModel(_mockScreen);
+    }
+    
     [Test]
     public void Constructor_InitializesWithEmptyWords()
     {
-        var vm = new ReaderScreenViewModel();
-        
-        Assert.That(vm.Words, Is.Not.Null);
+        Assert.That(_viewModel.Words, Is.Not.Null);
         //TODO: Remove random words on initialisation later.
         //Assert.That(vm.Words.Count, Is.EqualTo(0)); // This currently will fail because I'm adding random words on initialisation.
-        Assert.That(vm.IsPopupVisible, Is.False);
-        Assert.That(vm.SelectedWord, Is.Null);
+        Assert.That(_viewModel.IsPopupVisible, Is.False);
+        Assert.That(_viewModel.SelectedWord, Is.Null);
     }
     
     [Test]
     public void AddRandomTextCommand_AddsWordsToCollection()
     {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
+        _viewModel.AddRandomTextCommand.Execute().Subscribe();
         
-        Assert.That(vm.Words, Is.Not.Empty);
+        Assert.That(_viewModel.Words, Is.Not.Empty);
     }
     
     [Test]
     public void SelectWordCommand_SetsSelectedWordAndTogglesPopup()
     {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
+        _viewModel.AddRandomTextCommand.Execute().Subscribe();
         
-        var firstWord = vm.Words.FirstOrDefault(w => !w.IsSpace);
+        var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
         
         using (Assert.EnterMultipleScope())
         {
-            Assert.That(vm.SelectedWord, Is.EqualTo(firstWord));
-            Assert.That(vm.IsPopupVisible, Is.True);
+            Assert.That(_viewModel.SelectedWord, Is.EqualTo(firstWord));
+            Assert.That(_viewModel.IsPopupVisible, Is.True);
         }
     }
     
@@ -65,72 +73,69 @@ public class ReaderScreenViewModelTests
     [Test]
     public void SelectWordCommand_TogglesPopupOnSubsequentClicks()
     {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
+        _viewModel.AddRandomTextCommand.Execute().Subscribe();
         
-        var firstWord = vm.Words.FirstOrDefault(w => !w.IsSpace);
+        var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.True);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.True);
 
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.False);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.False);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.True);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.True);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.False);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.False);
     }
     
     [Test]
     public void ClosePopupCommand_ClosesPopupAndClearsSelectedWord()
     {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
+        _viewModel.AddRandomTextCommand.Execute().Subscribe();
         
-        var firstWord = vm.Words.FirstOrDefault(w => !w.IsSpace);
+        var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
         
         using (Assert.EnterMultipleScope())
         {
-            Assert.That(vm.IsPopupVisible, Is.True);
-            Assert.That(vm.SelectedWord, Is.Not.Null);
+            Assert.That(_viewModel.IsPopupVisible, Is.True);
+            Assert.That(_viewModel.SelectedWord, Is.Not.Null);
         }
 
-        vm.ClosePopupCommand.Execute().Subscribe();
+        _viewModel.ClosePopupCommand.Execute().Subscribe();
         
         using (Assert.EnterMultipleScope())
         {
-            Assert.That(vm.IsPopupVisible, Is.False);
-            Assert.That(vm.SelectedWord, Is.Null);
+            Assert.That(_viewModel.IsPopupVisible, Is.False);
+            Assert.That(_viewModel.SelectedWord, Is.Null);
         }
     }
     
     [Test]
     public void SelectWordCommand_TogglesPopupAfterClosePopup()
     {
-        var vm = new ReaderScreenViewModel();
-        vm.AddRandomTextCommand.Execute().Subscribe();
+        _viewModel.AddRandomTextCommand.Execute().Subscribe();
         
-        var firstWord = vm.Words.FirstOrDefault(w => !w.IsSpace);
+        var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
         
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.True);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.True);
         
-        vm.ClosePopupCommand.Execute().Subscribe();
+        _viewModel.ClosePopupCommand.Execute().Subscribe();
 
         using (Assert.EnterMultipleScope())
         {
-            Assert.That(vm.IsPopupVisible, Is.False);
-            Assert.That(vm.SelectedWord, Is.Null);
+            Assert.That(_viewModel.IsPopupVisible, Is.False);
+            Assert.That(_viewModel.SelectedWord, Is.Null);
         }
 
-        vm.SelectedWordCommand.Execute(firstWord).Subscribe();
-        Assert.That(vm.IsPopupVisible, Is.True);
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        Assert.That(_viewModel.IsPopupVisible, Is.True);
     }
 }

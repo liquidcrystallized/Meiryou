@@ -63,8 +63,10 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
 
-    public ReaderScreenViewModel()
+    public ReaderScreenViewModel(IScreen screen)
     {
+        HostScreen = screen;
+        
         AddRandomTextCommand = ReactiveCommand.Create(AddRandomText);
         ClosePopupCommand = ReactiveCommand.Create(ClosePopup);
         NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
