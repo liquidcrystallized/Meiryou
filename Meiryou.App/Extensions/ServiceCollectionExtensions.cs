@@ -20,7 +20,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IScreen, MainWindowViewModel>();
         services.AddSingleton<MainWindowViewModel>();
         services.AddTransient<SplashScreenViewModel>();
-        services.AddTransient<MenuScreenViewModel>();
         services.AddTransient<LibraryScreenViewModel>();
         services.AddTransient<ReaderScreenViewModel>();
         services.AddTransient<SettingsScreenViewModel>();
