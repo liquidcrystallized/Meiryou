@@ -8,11 +8,6 @@ using ReactiveUI;
 
 namespace Meiryou.Tests.IntegrationTests.App;
 
-public class MockScreen : IScreen
-{
-    public RoutingState Router { get; } = new();
-}
-
 [TestFixture]
 public class DiConfigurationTests
 {
@@ -26,7 +21,6 @@ public class DiConfigurationTests
         services.AddDbContext<MeiryouDbContext>(options =>
             options.UseSqlite("DataSource=:memory:"));
 
-        services.AddSingleton<IScreen, MockScreen>();
         services.AddCommonServices();
 
         _services = services.BuildServiceProvider();
