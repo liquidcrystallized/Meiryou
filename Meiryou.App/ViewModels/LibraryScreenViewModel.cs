@@ -18,7 +18,7 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
     private readonly IReadingContentService _readingContentService;
     
     public ObservableCollection<ReadingContent> Contents { get; } = [];
-    public IScreen HostScreen { get; set; }
+    public IScreen HostScreen { get; }
 
     public bool IsLoadingContents
     {
@@ -40,11 +40,18 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> LoadContentsCommand { get; }
     public ReactiveCommand<ReadingContent, Unit> SelectContentAndLoadReaderCommand { get; }
 
+    public LibraryScreenViewModel(IScreen screen) : this(screen,
+        Locator.Current.GetService<IFilesService>() ?? throw new InvalidOperationException(),
+        Locator.Current.GetService<IReadingContentService>() ?? throw new InvalidOperationException())
+    {
+        
+    }
+
     public LibraryScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService)
     {
         HostScreen = screen;
-        _filesService = filesService ?? throw new ArgumentNullException(nameof(filesService));
-        _readingContentService = readingContentService ?? throw new ArgumentNullException(nameof(readingContentService));
+        _filesService = filesService;
+        _readingContentService = readingContentService;
 
         ImportTextCommand = ReactiveCommand.CreateFromTask(ImportTextAsync);
         LoadContentsCommand = ReactiveCommand.CreateFromTask(LoadContentsAsync);

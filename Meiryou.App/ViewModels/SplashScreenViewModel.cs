@@ -2,19 +2,13 @@ using System;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using Meiryou.Core.Services;
-using Meiryou.Services;
 using ReactiveUI;
-using Splat;
 
 namespace Meiryou.ViewModels;
 
 public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
 {
-    private readonly IFilesService _filesService;
-    private readonly IReadingContentService _readingContentService;
-    
-    public IScreen HostScreen { get; set; }
+    public IScreen HostScreen { get; }
     
     public bool IsLoading
     {
@@ -30,21 +24,18 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
     
     public string UrlPathSegment { get; } = Guid.NewGuid().ToString().Substring(0, 5);
 
-    public SplashScreenViewModel(IScreen screen, IFilesService filesService, IReadingContentService readingContentService)
+    public SplashScreenViewModel(IScreen screen)
     {
         HostScreen = screen;
         IsLoading = true;
         StatusMessage = "Loading...";
-       
-        _filesService = filesService;
-        _readingContentService = readingContentService;
         
         _ = InitialiseAsync();
     }
 
     private async Task InitialiseAsync()
     {
-        var libraryViewModel = new LibraryScreenViewModel(HostScreen, _filesService, _readingContentService);
+        var libraryViewModel = new LibraryScreenViewModel(HostScreen);
 
         if (libraryViewModel is null)
         {
