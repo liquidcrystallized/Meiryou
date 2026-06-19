@@ -50,6 +50,6 @@ public class SplashScreenViewModel : ReactiveObject, IRoutableViewModel
         // Arbitrary splash screen delay.
         await Task.Delay(2000);
 
-        await HostScreen.Router.Navigate.Execute(libraryViewModel);
+        await HostScreen.Router.NavigateAndReset.Execute(libraryViewModel);
     }
 }
