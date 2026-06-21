@@ -14,7 +14,8 @@ public class WordTests
         {
             Assert.That(word.Id, Is.EqualTo(0)); // Default int
             Assert.That(word.Text, Is.Empty);
-            Assert.That(word.Definition, Is.Null);
+            Assert.That(word.Definition, Is.Empty);
+            Assert.That(word.PartOfSpeech, Is.Empty);
             Assert.That(word.FrequencyRank, Is.EqualTo(-1));
             Assert.That(word.FamiliarityLevel, Is.EqualTo(WordFamiliarityLevel.Unknown));
         }

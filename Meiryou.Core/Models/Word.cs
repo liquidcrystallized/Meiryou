@@ -4,8 +4,8 @@ public class Word
 {
     public int Id { get; set; }
     public string Text { get; set; } = string.Empty;
-    public string? Definition { get; set; }
-    public string? PartOfSpeech { get; set; }
+    public string? Definition { get; set; } = string.Empty;
+    public string? PartOfSpeech { get; set; } = string.Empty;
     public int FrequencyRank { get; set; } = -1;
     public WordFamiliarityLevel FamiliarityLevel { get; set; } = WordFamiliarityLevel.Unknown;
     public DateTime CreatedAt { get; set; }
