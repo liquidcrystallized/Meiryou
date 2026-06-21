@@ -1,4 +1,5 @@
 using Meiryou.Core.Data;
+using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -62,5 +63,16 @@ public class WordServiceTests
 
         Assert.That(result.CreatedAt, Is.GreaterThanOrEqualTo(before));
         Assert.That(result.CreatedAt, Is.LessThanOrEqualTo(after));
+    }
+
+    [Test]
+    public async Task GetOrCreateWordAsync_ShouldReturnWordWithDefaults_OnNewWord()
+    {
+        var result = await _service.GetOrCreateWordAsync("食べる");
+    
+        Assert.That(result.Definition, Is.Empty);
+        Assert.That(result.PartOfSpeech, Is.Empty);
+        Assert.That(result.FrequencyRank, Is.EqualTo(-1));
+        Assert.That(result.FamiliarityLevel, Is.EqualTo(WordFamiliarityLevel.Unknown));
     }
 }
