@@ -1,4 +1,4 @@
-namespace Meiryou.Core.Services;
+namespace Meiryou.Core.Services.TextParsing;
 
 public class TextParsingService : ITextParsingService
 {
