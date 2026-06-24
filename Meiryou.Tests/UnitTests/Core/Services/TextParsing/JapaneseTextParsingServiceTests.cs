@@ -3,13 +3,10 @@ using Meiryou.Core.Services.TextParsing;
 namespace Meiryou.Tests.UnitTests.Core.Services.TextParsing;
 
 [TestFixture]
-public class JapaneseTextParsingServiceTests
+public class JapaneseTextParsingServiceTests : TextParsingServiceSharedBehaviourTests
 {
-    private JapaneseTextParsingService _service;
-
-    [SetUp]
-    public void SetUp()
+    protected override ITextParsingService CreateService()
     {
-        _service = new JapaneseTextParsingService();
+        return new JapaneseTextParsingService();
     }
 }
