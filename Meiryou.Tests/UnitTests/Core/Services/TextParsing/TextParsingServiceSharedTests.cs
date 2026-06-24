@@ -2,14 +2,14 @@ using Meiryou.Core.Services.TextParsing;
 
 namespace Meiryou.Tests.UnitTests.Core.Services.TextParsing;
 
-public abstract class TextParsingServiceSharedBehaviourTests
+public abstract class TextParsingServiceSharedTests
 {
-    protected ITextParsingService Service;
+    private ITextParsingService _service;
 
     [SetUp]
     public void SetUp()
     {
-        Service = CreateService();
+        _service = CreateService();
     }
 
     [Test]
@@ -17,7 +17,7 @@ public abstract class TextParsingServiceSharedBehaviourTests
     {
         var content = string.Empty;
         
-        var result = Service.SegmentTextIntoWords(content);
+        var result = _service.SegmentTextIntoWords(content);
 
         Assert.That(result, Is.Empty);
     }

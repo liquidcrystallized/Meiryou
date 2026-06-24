@@ -3,7 +3,7 @@ using Meiryou.Core.Services.TextParsing;
 namespace Meiryou.Tests.UnitTests.Core.Services.TextParsing;
 
 [TestFixture]
-public class JapaneseTextParsingServiceTests : TextParsingServiceSharedBehaviourTests
+public class JapaneseTextParsingServiceTests : TextParsingServiceSharedTests
 {
     protected override ITextParsingService CreateService()
     {
