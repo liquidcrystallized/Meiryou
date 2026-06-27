@@ -1,41 +1,31 @@
-> Warning: This app is a WIP and is in active development. It is currently intended for developers. Things will break and
-> there is not persistant data. Downloads for various platforms (Windows/Linux/Android) will be available when the application
-> hits 1.0 status.
+> Note: This application is a work in progress and is currently intended for developers. 
+> Features may change, and there is no persistent data guarantee nor binaries until version 1.0.
 
 # Meiryou
-Meiryou (明瞭) is a free and open source application that helps Japanese learners acquire vocabulary by reading.
+Meiryou (明瞭) is free software that helps Japanese learners soldify their reading ability through extensive reading.
+It provides tools to assist a learner in gradually being able to wean off dictionary use and eventually reach native
+levels of reading, being able to consume native content with ease.
 
-## How It Works
+## How It works
 
-Read as you learn. Your familiarity with a word is indicated by the the background colour of the word. The colour
+Learn as you read. Your familiarity with a word/grammar is indicated by the the background colour of the word. The colour
 changes the more familiar you are with a word. When a word becomes well known, the colour will
-disappear altogether.
+disappear altogether. This will allow a reader to judge the "difficulty" of a piece of content which will help them
+pick something that's comprehensible for their current level.
 
-You'll also be able to click on a word to see and edit various stats and info about a word.
+## Platform support
 
-## Planned Features
+There will initially be support for desktop (Windows/Linux). Mobile (Android) will be worked on post release.
 
-### Offline and local first
+## License
 
-You should be able to use this on a desert island. Your data stays on your device.
+Sources in this repository are released under the AGPL license.
 
-### Japanese focused
+These are the licenses for the dependencies:
 
-This app is only focused on the Japanese language which allows it to
-focus on quirks specific to the language. There are no plans to support any additional languages.
-
-### User friendly
-
-This application was designed with the average language learner in mind. This means no technical steps are needed to install
-the application (such as hosting a server). The UI/UX is designed with HIGs in mind to be intuitive, efficient and easy-to-use.
-
-### Cross-platform
-
-Support for desktop (Windows/Linux) and mobile (Android).
-
-## Nuget Dependencies
-- [Avalonia](https://github.com/avaloniaui/avalonia) (MIT)
-- [Lucene.NET](https://github.com/apache/lucenenet) (Apache-2.0)
-- [NMeCab](https://github.com/komutan/NMeCab) (LGPL)
-- [NUnit](https://github.com/nunit/nunit) (MIT)
-- [ReactiveUI](https://github.com/reactiveui/ReactiveUI) (MIT)
+- [Avalonia](https://www.nuget.org/packages/Avalonia/11.3.12) (MIT)
+- [Lucene.NET](https://www.nuget.org/packages/Lucene.Net/4.8.0-beta00017/License) (Apache 2.0)
+- [Entity Framework Core](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/9.0.16) (MIT)
+- [NSubstitute](https://www.nuget.org/packages/NSubstitute) (BSD-3 Clause)
+- [NUnit](https://www.nuget.org/packages/NUnit/4.3.2) (MIT)
+- [ReactiveUI](https://www.nuget.org/packages/ReactiveUI.Avalonia/11.3.8) (MIT)
