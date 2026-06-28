@@ -1,5 +1,6 @@
 using System;
 using Meiryou.Core.Services;
+using Meiryou.Core.Services.TextParsing;
 using Meiryou.Services;
 using Meiryou.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class ServiceCollectionExtensions
     public static void AddCommonServices(this IServiceCollection services)
     {
         services.AddTransient<IFilesService, FilesService>();
+        services.AddTransient<ITextParsingService, JapaneseTextParsingService>();
         
         services.AddScoped<IContentWordService, ContentWordService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();
