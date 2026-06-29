@@ -13,7 +13,9 @@ public static class ServiceCollectionExtensions
     public static void AddCommonServices(this IServiceCollection services)
     {
         services.AddTransient<IFilesService, FilesService>();
-        services.AddTransient<ITextParsingService, JapaneseTextParsingService>();
+        
+        services.AddSingleton<ITextParsingServiceFactory, TextParsingServiceFactory>();
+        services.AddSingleton<ITextParsingService, JapaneseTextParsingService>(_ => new JapaneseTextParsingService());
         
         services.AddScoped<IContentWordService, ContentWordService>();
         services.AddScoped<IReadingContentService, ReadingContentService>();

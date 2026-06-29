@@ -1,11 +1,14 @@
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Ja;
 using Lucene.Net.Analysis.TokenAttributes;
+using Meiryou.Core.Models;
 
 namespace Meiryou.Core.Services.TextParsing;
 
 public class JapaneseTextParsingService : ITextParsingService
 {
+    public LanguageType Language => LanguageType.Japanese;
+
     public JapaneseTextParsingService() { }
 
     //TODO: The default tokenizer doesn't output text in the required format, will need
