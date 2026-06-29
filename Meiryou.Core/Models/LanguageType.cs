@@ -5,5 +5,7 @@ namespace Meiryou.Core.Models;
 /// </summary>
 public enum LanguageType
 {
-    Japanese
+    Chinese,
+    Japanese,
+    Korean
 }
