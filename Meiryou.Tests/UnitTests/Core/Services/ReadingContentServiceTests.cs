@@ -1,4 +1,5 @@
 using Meiryou.Core.Data;
+using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,8 +42,8 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetAllContentsAsync_ShouldReturnAllContents()
     {
-        await _service.ImportContentAsync("Content 1", "Text 1");
-        await _service.ImportContentAsync("Content 2", "Text 2");
+        await _service.ImportContentAsync(LanguageType.Japanese, "Content 1", "Text 1");
+        await _service.ImportContentAsync(LanguageType.Japanese, "Content 2", "Text 2");
 
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
@@ -54,9 +55,9 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetAllContentsAsync_ShouldOrderDescendingByCreatedAt()
     {
-        await _service.ImportContentAsync("Old Content", "Text");
+        await _service.ImportContentAsync(LanguageType.Japanese, "Old Content", "Text");
         await Task.Delay(10);
-        await _service.ImportContentAsync("New Content", "Text");
+        await _service.ImportContentAsync(LanguageType.Japanese, "New Content", "Text");
 
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
@@ -71,7 +72,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task GetContentByIdAsync_ShouldReturnContent_WhenFound()
     {
-        var content = await _service.ImportContentAsync("Test Content", "Test Text");
+        var content = await _service.ImportContentAsync(LanguageType.Japanese, "Test Content", "Test Text");
 
         var result = await _service.GetContentByIdAsync(content.Id);
 
@@ -91,7 +92,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task ImportContentAsync_ShouldAddContent_AndReturnEntityWithId()
     {
-        var result = await _service.ImportContentAsync("New Content", "New Text");
+        var result = await _service.ImportContentAsync(LanguageType.Japanese, "New Content", "New Text");
 
         Assert.That(result.Id, Is.GreaterThan(0));
         Assert.That(_context.ReadingContents.Any(c => c.Id == result.Id), Is.True);
@@ -101,7 +102,7 @@ public class ReadingContentServiceTests
     public async Task ImportContentAsync_ShouldSetTimestamps()
     {
         var beforeAdd = DateTime.UtcNow;
-        var result = await _service.ImportContentAsync("Timestamp Test", "Text");
+        var result = await _service.ImportContentAsync(LanguageType.Japanese, "Timestamp Test", "Text");
         var afterAdd = DateTime.UtcNow;
 
         Assert.That(result.CreatedAt, Is.GreaterThanOrEqualTo(beforeAdd));
@@ -113,7 +114,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task ImportContentAsync_ShouldHandleEmptyContent()
     {
-        await _service.ImportContentAsync("Empty Content", "");
+        await _service.ImportContentAsync(LanguageType.Japanese, "Empty Content", "");
         var result = await _service.GetAllContentsAsync();
         var readingContents = result.ToList();
 
@@ -123,7 +124,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task ImportContentAsync_ShouldHandleEmptyTitle()
     {
-       await _service.ImportContentAsync("", "wow");
+       await _service.ImportContentAsync(LanguageType.Japanese, "", "wow");
        var result = await _service.GetAllContentsAsync();
        var readingContents = result.ToList();
 
@@ -134,7 +135,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task DeleteContentAsync_ShouldDeleteExistingContent()
     {
-        var content = await _service.ImportContentAsync("To Delete", "Text");
+        var content = await _service.ImportContentAsync(LanguageType.Japanese, "To Delete", "Text");
 
         await _service.DeleteContentAsync(content.Id);
 
@@ -144,7 +145,7 @@ public class ReadingContentServiceTests
     [Test]
     public async Task DeleteContentAsync_ShouldDoNothing_WhenNotFound()
     {
-        await _service.ImportContentAsync("Keep This", "Text");
+        await _service.ImportContentAsync(LanguageType.Japanese, "Keep This", "Text");
 
         await _service.DeleteContentAsync(999); // Non-existent ID
 
