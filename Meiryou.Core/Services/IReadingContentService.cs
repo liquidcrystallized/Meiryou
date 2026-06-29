@@ -10,6 +10,6 @@ public interface IReadingContentService
 {
     Task<IEnumerable<ReadingContent>> GetAllContentsAsync();
     Task<ReadingContent?> GetContentByIdAsync(int id);
-    Task<ReadingContent> ImportContentAsync(string title, string content);
+    Task<ReadingContent> ImportContentAsync(LanguageType language, string title, string content);
     Task DeleteContentAsync(int id);
 }

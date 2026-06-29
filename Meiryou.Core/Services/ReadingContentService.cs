@@ -28,10 +28,11 @@ public class ReadingContentService : IReadingContentService
             .FirstOrDefaultAsync(rc => rc.Id == id);
     }
 
-    public async Task<ReadingContent> ImportContentAsync(string title, string content)
+    public async Task<ReadingContent> ImportContentAsync(LanguageType language, string title, string content)
     {
         var readingContent = new ReadingContent
         {
+            Language = language,
             Title = string.IsNullOrWhiteSpace(title) ? "untitled" : title,
             Content = content,
             CreatedAt = DateTime.UtcNow,
