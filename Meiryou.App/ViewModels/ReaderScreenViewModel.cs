@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Threading.Tasks;
 using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Meiryou.Core.Services.TextParsing;
@@ -86,16 +87,49 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         ClosePopupCommand = ReactiveCommand.Create(ClosePopup);
         NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWord);
-        
-        //TODO: Remove later, just some content for immediate visualisation.
-        AddRandomText();
     }
 
-    public void LoadContent(ReadingContent content)
+    public async Task LoadContent(ReadingContent content)
     {
         CurrentContent = content;
+        Words.Clear();
         
-        //TODO: Tokenize and stuff.
+        var textParsingService = _textParsingServiceFactory.GetService(CurrentContent.Language);
+        var words = textParsingService.SegmentTextIntoWords(CurrentContent.Content);
+
+        foreach (var wordText in words)
+        {
+            if (string.IsNullOrWhiteSpace(wordText))
+            {
+                // Korean has spaces, Chinese and Japanese don't.
+                if (CurrentContent.Language == LanguageType.Korean)
+                {
+                    Words.Add(new WordEntry
+                    {
+                        Word = new Word { Text = " ", FamiliarityLevel = WordFamiliarityLevel.WellKnown },
+                        IsSpace = true
+                    });
+                }
+                else
+                {
+                    Words.Add(new WordEntry
+                    {
+                        Word = new Word { Text = "", FamiliarityLevel =  WordFamiliarityLevel.WellKnown },
+                        IsSpace =  false
+                    });
+                }
+
+                continue;
+            }
+
+            var word = await _wordService.GetOrCreateWordAsync(wordText);
+            
+            Words.Add(new WordEntry
+            {
+                Word = word,
+                IsSpace =  false
+            });
+        }
     }
 
     //TODO: Temporary, remove/change later.
