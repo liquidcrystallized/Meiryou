@@ -115,7 +115,7 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
     private async Task SelectContentAndLoadReaderAsync(ReadingContent content)
     {
         var readerViewModel = new ReaderScreenViewModel(HostScreen);
-        readerViewModel.LoadContent(content);
+        await readerViewModel.LoadContent(content);
         await HostScreen.Router.Navigate.Execute(readerViewModel);
     }
 }
