@@ -1,3 +1,4 @@
+using Meiryou.Core.Services;
 using Meiryou.Core.Services.TextParsing;
 using Meiryou.ViewModels;
 using NSubstitute;
@@ -10,6 +11,7 @@ public class ReaderScreenViewModelTests
 {
     private IScreen _mockScreen;
     private ITextParsingServiceFactory _mockTextParsingServiceFactory;
+    private IWordService _mockWordService;
     private ReaderScreenViewModel _viewModel;
     
     [SetUp]
@@ -17,7 +19,8 @@ public class ReaderScreenViewModelTests
     {
         _mockScreen = Substitute.For<IScreen>();
         _mockTextParsingServiceFactory = Substitute.For<ITextParsingServiceFactory>();
-        _viewModel = new ReaderScreenViewModel(_mockScreen, _mockTextParsingServiceFactory);
+        _mockWordService = Substitute.For<IWordService>();
+        _viewModel = new ReaderScreenViewModel(_mockScreen, _mockTextParsingServiceFactory, _mockWordService);
     }
     
     [Test]
