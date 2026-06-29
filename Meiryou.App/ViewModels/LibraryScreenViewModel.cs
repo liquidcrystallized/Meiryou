@@ -81,7 +81,9 @@ public class LibraryScreenViewModel : ReactiveObject, IRoutableViewModel
             using var reader = new StreamReader(readStream);
 
             var contentTitle = Path.GetFileNameWithoutExtension(file.Name);
-            await _readingContentService.ImportContentAsync(contentTitle, await reader.ReadToEndAsync());
+            
+            //TODO: If other languages are added in the future (e.g, Chinese, add a selector for the user).
+            await _readingContentService.ImportContentAsync(LanguageType.Japanese, contentTitle, await reader.ReadToEndAsync());
 
             _ = LoadContentsAsync();
         }
