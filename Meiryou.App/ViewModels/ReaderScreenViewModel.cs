@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using Meiryou.Core.Models;
+using Meiryou.Core.Services;
 using Meiryou.Core.Services.TextParsing;
 using ReactiveUI;
 using Splat;
@@ -37,6 +38,7 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     };
 
     private readonly ITextParsingServiceFactory _textParsingServiceFactory;
+    private readonly IWordService _wordService;
     
     public IScreen HostScreen { get; set; }
     public ObservableCollection<WordEntry> Words { get; } = [];
@@ -68,15 +70,17 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<WordEntry, Unit> SelectedWordCommand { get; }
 
     public ReaderScreenViewModel(IScreen screen) : this(screen,
-        Locator.Current.GetService<ITextParsingServiceFactory>() ?? throw new InvalidOperationException())
+        Locator.Current.GetService<ITextParsingServiceFactory>() ?? throw new InvalidOperationException(),
+        Locator.Current.GetService<IWordService>() ?? throw new InvalidOperationException())
     {
         
     }
 
-    public ReaderScreenViewModel(IScreen screen, ITextParsingServiceFactory textParsingServiceFactory)
+    public ReaderScreenViewModel(IScreen screen, ITextParsingServiceFactory textParsingServiceFactory, IWordService wordService)
     {
         HostScreen = screen;
         _textParsingServiceFactory = textParsingServiceFactory;
+        _wordService = wordService;
         
         AddRandomTextCommand = ReactiveCommand.Create(AddRandomText);
         ClosePopupCommand = ReactiveCommand.Create(ClosePopup);
