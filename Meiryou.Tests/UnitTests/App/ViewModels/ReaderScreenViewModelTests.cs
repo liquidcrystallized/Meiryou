@@ -1,3 +1,4 @@
+using Meiryou.Core.Services.TextParsing;
 using Meiryou.ViewModels;
 using NSubstitute;
 using ReactiveUI;
@@ -8,13 +9,15 @@ namespace Meiryou.Tests.UnitTests.App.ViewModels;
 public class ReaderScreenViewModelTests
 {
     private IScreen _mockScreen;
+    private ITextParsingServiceFactory _mockTextParsingServiceFactory;
     private ReaderScreenViewModel _viewModel;
     
     [SetUp]
     public void SetUp()
     {
         _mockScreen = Substitute.For<IScreen>();
-        _viewModel = new ReaderScreenViewModel(_mockScreen);
+        _mockTextParsingServiceFactory = Substitute.For<ITextParsingServiceFactory>();
+        _viewModel = new ReaderScreenViewModel(_mockScreen, _mockTextParsingServiceFactory);
     }
     
     [Test]
