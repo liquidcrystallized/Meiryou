@@ -12,7 +12,7 @@ public class JapaneseTextParsingService : ITextParsingService
     public JapaneseTextParsingService() { }
 
     //TODO: The default tokenizer doesn't output text in the required format, will need
-    // a custom method to inflect and de-inflect verbs.
+    // a custom method to inflect and de-inflect verbs. Also maybe deal with newlines properly.
     public IEnumerable<string> SegmentTextIntoWords(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return [];
