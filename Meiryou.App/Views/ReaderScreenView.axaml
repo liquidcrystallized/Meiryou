@@ -14,8 +14,6 @@
             <!-- Not sure if having buttons here is good ui, but it's okay for testing for now. -->
             <Button HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding NavigateBackCommand}">Back</Button>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">ReaderScreenView</TextBlock>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Command="{Binding AddRandomTextCommand}">Add Random Text</Button>
         </UniformGrid>
        
         <!-- This is where the reading content is displayed -->
