@@ -1,3 +1,4 @@
+using Meiryou.Core.Models;
 using Meiryou.Core.Services;
 using Meiryou.Core.Services.TextParsing;
 using Meiryou.ViewModels;
@@ -11,6 +12,7 @@ public class ReaderScreenViewModelTests
 {
     private IScreen _mockScreen;
     private ITextParsingServiceFactory _mockTextParsingServiceFactory;
+    private ITextParsingService _mockTextParsingService;
     private IWordService _mockWordService;
     private ReaderScreenViewModel _viewModel;
     
@@ -19,6 +21,7 @@ public class ReaderScreenViewModelTests
     {
         _mockScreen = Substitute.For<IScreen>();
         _mockTextParsingServiceFactory = Substitute.For<ITextParsingServiceFactory>();
+        _mockTextParsingService = Substitute.For<ITextParsingService>();
         _mockWordService = Substitute.For<IWordService>();
         _viewModel = new ReaderScreenViewModel(_mockScreen, _mockTextParsingServiceFactory, _mockWordService);
     }
@@ -27,24 +30,24 @@ public class ReaderScreenViewModelTests
     public void Constructor_InitializesWithEmptyWords()
     {
         Assert.That(_viewModel.Words, Is.Not.Null);
-        //TODO: Remove random words on initialisation later.
-        //Assert.That(vm.Words.Count, Is.EqualTo(0)); // This currently will fail because I'm adding random words on initialisation.
+        Assert.That(_viewModel.Words, Is.Empty);
         Assert.That(_viewModel.IsPopupVisible, Is.False);
         Assert.That(_viewModel.SelectedWord, Is.Null);
     }
     
     [Test]
-    public void AddRandomTextCommand_AddsWordsToCollection()
-    {
-        _viewModel.AddRandomTextCommand.Execute().Subscribe();
-        
-        Assert.That(_viewModel.Words, Is.Not.Empty);
-    }
-    
-    [Test]
     public void SelectWordCommand_SetsSelectedWordAndTogglesPopup()
     {
-        _viewModel.AddRandomTextCommand.Execute().Subscribe();
+        var testContent = CreateTestContent(LanguageType.Japanese, "空に消える");
+
+        _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
+        _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
+        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+
+        var loadContentTask = _viewModel.LoadContent(testContent);
+        loadContentTask.Wait();
         
         var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
@@ -58,28 +61,19 @@ public class ReaderScreenViewModelTests
         }
     }
     
-    //[Test]
-    //public void SelectWordCommand_DoesNotSelectSpaceEntries()
-    //{
-    //    var vm = new ReaderScreenViewModel();
-    //    vm.AddRandomTextCommand.Execute().Subscribe();
-    //    
-    //    var spaceEntry = vm.Words.FirstOrDefault(w => w.IsSpace);
-    //    Assert.That(spaceEntry, Is.Not.Null);
-    //    
-    //    vm.SelectedWordCommand.Execute(spaceEntry).Subscribe();
-    //    
-    //    using (Assert.EnterMultipleScope())
-    //    {
-    //        Assert.That(vm.SelectedWord, Is.Null);
-    //        Assert.That(vm.IsPopupVisible, Is.False);
-    //    }
-    //}
-    
     [Test]
     public void SelectWordCommand_TogglesPopupOnSubsequentClicks()
     {
-        _viewModel.AddRandomTextCommand.Execute().Subscribe();
+        var testContent = CreateTestContent(LanguageType.Japanese, "空に消える");
+        
+        _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
+        _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
+        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        
+        var loadContentTask = _viewModel.LoadContent(testContent);
+        loadContentTask.Wait();
         
         var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
@@ -100,7 +94,16 @@ public class ReaderScreenViewModelTests
     [Test]
     public void ClosePopupCommand_ClosesPopupAndClearsSelectedWord()
     {
-        _viewModel.AddRandomTextCommand.Execute().Subscribe();
+        var testContent = CreateTestContent(LanguageType.Japanese, "空に消える");
+        
+        _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
+        _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
+        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        
+        var loadContentTask = _viewModel.LoadContent(testContent);
+        loadContentTask.Wait();
         
         var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
@@ -125,7 +128,16 @@ public class ReaderScreenViewModelTests
     [Test]
     public void SelectWordCommand_TogglesPopupAfterClosePopup()
     {
-        _viewModel.AddRandomTextCommand.Execute().Subscribe();
+        var testContent = CreateTestContent(LanguageType.Japanese, "空に消える");
+        
+        _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
+        _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
+        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        
+        var loadContentTask = _viewModel.LoadContent(testContent);
+        loadContentTask.Wait();
         
         var firstWord = _viewModel.Words.FirstOrDefault(w => !w.IsSpace);
         Assert.That(firstWord, Is.Not.Null);
@@ -143,5 +155,16 @@ public class ReaderScreenViewModelTests
 
         _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
         Assert.That(_viewModel.IsPopupVisible, Is.True);
+    }
+
+    private static ReadingContent CreateTestContent(LanguageType language, string content)
+    {
+        return new ReadingContent
+        {
+            Id = 1,
+            Language = language,
+            Title = "Test Content",
+            Content = content
+        };
     }
 }
