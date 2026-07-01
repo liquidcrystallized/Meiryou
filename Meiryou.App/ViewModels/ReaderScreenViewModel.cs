@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using Meiryou.Core.Models;
@@ -61,17 +63,31 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         SelectedWordCommand = ReactiveCommand.Create<WordEntry>(SelectWord);
     }
 
+    /// <summary>
+    /// Prepare a piece of content to display in the reader.
+    /// Basically breaking a piece of text into individual word objects
+    /// and builds a display-ready collection for the view to use.
+    /// </summary>
+    /// <param name="content">A piece of reading content.</param>
     public async Task LoadContent(ReadingContent content)
     {
         CurrentContent = content;
         Words.Clear();
         
         var textParsingService = _textParsingServiceFactory.GetService(CurrentContent.Language);
-        var words = textParsingService.SegmentTextIntoWords(CurrentContent.Content);
+        var wordStrings = textParsingService.SegmentTextIntoWords(CurrentContent.Content);
+        var listOfWordStrings = wordStrings.ToList();
+        var listOfUniqueWordStrings = listOfWordStrings
+            .Where(w => !string.IsNullOrWhiteSpace(w))
+            .Distinct()
+            .ToList();
+        
+        IEnumerable<Word> existingKnownWords = await _wordService.GetWordsByTextAsync(listOfUniqueWordStrings);
+        var wordLookupDictionary = existingKnownWords.ToDictionary(w => w.Text, StringComparer.Ordinal);
 
-        foreach (var wordText in words)
+        foreach (var wordString in listOfWordStrings)
         {
-            if (string.IsNullOrWhiteSpace(wordText))
+            if (string.IsNullOrWhiteSpace(wordString))
             {
                 // Korean has spaces, Chinese and Japanese don't.
                 if (CurrentContent.Language == LanguageType.Korean)
@@ -87,20 +103,21 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
                     Words.Add(new WordEntry
                     {
                         Word = new Word { Text = "", FamiliarityLevel =  WordFamiliarityLevel.WellKnown },
-                        IsSpace =  false
+                        IsSpace = false
                     });
                 }
-
                 continue;
             }
 
-            var word = await _wordService.GetOrCreateWordAsync(wordText);
-            
-            Words.Add(new WordEntry
+            if (wordLookupDictionary.TryGetValue(wordString, out var existingWord))
             {
-                Word = word,
-                IsSpace =  false
-            });
+                Words.Add(new WordEntry { Word = existingWord, IsSpace = false });
+            }
+            else
+            {
+                var newWord = new Word { Text = wordString };
+                Words.Add(new WordEntry { Word = newWord, IsSpace = false });
+            }
         }
     }
     
