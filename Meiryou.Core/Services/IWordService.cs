@@ -8,7 +8,17 @@ namespace Meiryou.Core.Services;
 /// </summary>
 public interface IWordService
 {
-    Task<Word?> GetOrCreateWordAsync(string text);
+    /// <summary>
+    /// Get the existing words that a user already knows.
+    /// </summary>
+    /// <param name="texts">A list of (preferably) unique strings.</param>
+    /// <returns></returns>
     Task<IEnumerable<Word>> GetWordsByTextAsync(IEnumerable<string> texts);
+    
+    /// <summary>
+    /// "Add" a new word/word the user doesn't know to the database.
+    /// </summary>
+    /// <param name="text">A string representation of a word.</param>
+    /// <returns></returns>
     Task<Word> CreateWordAsync(string text);
 }

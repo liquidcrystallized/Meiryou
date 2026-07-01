@@ -13,26 +13,6 @@ public class WordService : IWordService
         _context = context;
     }
     
-    public async Task<Word?> GetOrCreateWordAsync(string text)
-    {
-        var word = await _context.Words.FirstOrDefaultAsync(w => w.Text == text);
-
-        if (word == null)
-        {
-            word = new Word
-            {
-                Text = text,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-
-            _context.Words.Add(word);
-            await _context.SaveChangesAsync();
-        }
-
-        return word;
-    }
-
     public async Task<IEnumerable<Word>> GetWordsByTextAsync(IEnumerable<string> texts)
     {
         var textList = texts.ToList();
