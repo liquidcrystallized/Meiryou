@@ -42,9 +42,11 @@ public class ReaderScreenViewModelTests
 
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
-        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
-        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
+            .Returns(Task.FromResult<IEnumerable<Word>>([]));
+        _mockWordService.CreateWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.CreateWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.CreateWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
 
         var loadContentTask = _viewModel.LoadContent(testContent);
         loadContentTask.Wait();
@@ -68,9 +70,11 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
-        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
-        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
+            .Returns(Task.FromResult<IEnumerable<Word>>([]));
+        _mockWordService.CreateWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.CreateWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.CreateWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
         
         var loadContentTask = _viewModel.LoadContent(testContent);
         loadContentTask.Wait();
@@ -98,9 +102,11 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
-        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
-        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
+            .Returns(Task.FromResult<IEnumerable<Word>>([]));
+        _mockWordService.CreateWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.CreateWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.CreateWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
         
         var loadContentTask = _viewModel.LoadContent(testContent);
         loadContentTask.Wait();
@@ -132,9 +138,11 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetOrCreateWordAsync("空")!.Returns(Task.FromResult(new Word { Text = "空" }));
-        _mockWordService.GetOrCreateWordAsync("に")!.Returns(Task.FromResult(new Word { Text = "に" }));
-        _mockWordService.GetOrCreateWordAsync("消える")!.Returns(Task.FromResult(new Word { Text = "消える" }));
+        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
+            .Returns(Task.FromResult<IEnumerable<Word>>([]));
+        _mockWordService.CreateWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
+        _mockWordService.CreateWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
+        _mockWordService.CreateWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
         
         var loadContentTask = _viewModel.LoadContent(testContent);
         loadContentTask.Wait();
