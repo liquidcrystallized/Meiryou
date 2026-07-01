@@ -9,4 +9,6 @@ namespace Meiryou.Core.Services;
 public interface IWordService
 {
     Task<Word?> GetOrCreateWordAsync(string text);
+    Task<IEnumerable<Word>> GetWordsByTextAsync(IEnumerable<string> texts);
+    Task<Word> CreateWordAsync(string text);
 }

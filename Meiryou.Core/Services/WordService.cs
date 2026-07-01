@@ -32,4 +32,29 @@ public class WordService : IWordService
 
         return word;
     }
+
+    public async Task<IEnumerable<Word>> GetWordsByTextAsync(IEnumerable<string> texts)
+    {
+        var textList = texts.ToList();
+        if (textList.Count == 0) return [];
+
+        return await _context.Words
+            .Where(w => textList.Contains(w.Text))
+            .ToListAsync();
+    }
+
+    public async Task<Word> CreateWordAsync(string text)
+    {
+        var word = new Word
+        {
+            Text = text,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt =  DateTime.UtcNow
+        };
+        
+        _context.Words.Add(word);
+        await _context.SaveChangesAsync();
+        
+        return word;
+    }
 }
