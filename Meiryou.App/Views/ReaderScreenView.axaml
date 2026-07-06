@@ -38,36 +38,47 @@
       
         <!-- Popup for word definitions are here -->
        <Grid Grid.Row="2" IsVisible="{Binding IsPopupVisible}">
-           <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-               <UniformGrid Rows="1" Columns="5" HorizontalAlignment="Center" VerticalAlignment="Center">
-                   <RadioButton GroupName="Familiarity Level Group" Content="New"/>
-                   <RadioButton GroupName="Familiarity Level Group" Content="Learning"/>
-                   <RadioButton GroupName="Familiarity Level Group" Content="Familiar"/>
-                   <RadioButton GroupName="Familiarity Level Group" Content="Known"/>
-                   <RadioButton GroupName="Familiarity Level Group" Content="Well Known"/>
-               </UniformGrid>
-               <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+           <Grid RowDefinitions="Auto,Auto">
+               <Grid Grid.Row="0" ColumnDefinitions="*,*,*,*,*">
+                   <RadioButton Grid.Column="0" 
+                                GroupName="Familiarity Level Group" 
+                                Content="New" 
+                                HorizontalAlignment="Center"/>
+                   <RadioButton Grid.Column="1" 
+                                GroupName="Familiarity Level Group" 
+                                Content="Learning" 
+                                HorizontalAlignment="Center"/>
+                   <RadioButton Grid.Column="2" 
+                                GroupName="Familiarity Level Group" 
+                                Content="Familiar" 
+                                HorizontalAlignment="Center"/>
+                   <RadioButton Grid.Column="3" 
+                                GroupName="Familiarity Level Group" 
+                                Content="Known" 
+                                HorizontalAlignment="Center"/>
+                   <RadioButton Grid.Column="4" 
+                                GroupName="Familiarity Level Group" 
+                                Content="Well Known" 
+                                HorizontalAlignment="Center"/>
+               </Grid>
+               <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                    <TextBlock FontSize="18" FontWeight="Bold"
                               Text="{Binding SelectedWord.Word.Text}"
                               Margin="0,0,0,10"/>
-                       
                    <TextBlock FontSize="14" 
                               Text="{Binding SelectedWord.Word.Definition}" 
                               Margin="0,0,0,5"/>
-                       
                    <TextBlock FontSize="14" FontStyle="Italic"
                               Text="{Binding SelectedWord.Word.PartOfSpeech}" 
                               Margin="0,0,0,5"/>
-                       
                    <TextBlock FontSize="14"
                               Text="{Binding SelectedWord.Word.FrequencyRank, StringFormat='Frequency Rank: {0}'}" 
                               Margin="0,0,0,5"/>
-                       
                    <TextBlock FontSize="14"
                               Text="{Binding SelectedWord.Word.FamiliarityLevel }"
                               Margin="0, 0, 0, 5"/>
                </StackPanel>
-           </StackPanel>
+           </Grid>
        </Grid> 
         
         <UniformGrid Grid.Row="3" Rows="1" Columns="1" DockPanel.Dock="Bottom">
