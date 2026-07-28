@@ -34,9 +34,9 @@ public class WordServiceTests
     [Test]
     public async Task GetWordsByTextAsync_ShouldReturnMatchingWords()
     {
-        await _service.CreateWordAsync("リンゴ");
-        await _service.CreateWordAsync("苺");
-        await _service.CreateWordAsync("桃");
+        await _service.SaveWordAsync("リンゴ");
+        await _service.SaveWordAsync("苺");
+        await _service.SaveWordAsync("桃");
 
         var result = await _service.GetWordsByTextAsync(["リンゴ", "桃"]);
         var resultWords = result.ToList();
@@ -49,7 +49,7 @@ public class WordServiceTests
     [Test]
     public async Task GetWordsByTextAsync_ShouldReturnEmpty_WhenNoMatches()
     {
-        await _service.CreateWordAsync("空");
+        await _service.SaveWordAsync("空");
 
         var result = await _service.GetWordsByTextAsync(["土", "海"]);
         var resultWords = result.ToList();
@@ -69,7 +69,7 @@ public class WordServiceTests
     [Test]
     public async Task GetWordsByTextAsync_ShouldHandleDuplicatesInInput()
     {
-        await _service.CreateWordAsync("猫");
+        await _service.SaveWordAsync("猫");
 
         var result = await _service.GetWordsByTextAsync(["猫", "猫", "猫"]);
         var resultWords = result.ToList();
@@ -83,7 +83,7 @@ public class WordServiceTests
     [Test]
     public async Task GetWordsByTextAsync_ShouldReturnFullWordObjects()
     {
-        var word = await _service.CreateWordAsync("犬");
+        var word = await _service.SaveWordAsync("犬");
         
         var result = await _service.GetWordsByTextAsync(["犬"]);
         var resultWords = result.ToList();
@@ -100,9 +100,9 @@ public class WordServiceTests
     [Test]
     public async Task GetWordsByTextAsync_ShouldReturnExactMatchesNotPartial()
     {
-        await _service.CreateWordAsync("買う");
-        await _service.CreateWordAsync("買います");
-        await _service.CreateWordAsync("買った");
+        await _service.SaveWordAsync("買う");
+        await _service.SaveWordAsync("買います");
+        await _service.SaveWordAsync("買った");
 
         var result = await _service.GetWordsByTextAsync(["買う"]);
         var resultWords = result.ToList();
@@ -112,9 +112,9 @@ public class WordServiceTests
     }
     
     [Test]
-    public async Task CreateWordAsync_ShouldCreateNewWord()
+    public async Task SaveWordAsync_ShouldCreateNewWord()
     {
-        var result = await _service.CreateWordAsync("新世界");
+        var result = await _service.SaveWordAsync("新世界");
 
         using (Assert.EnterMultipleScope())
         {
@@ -125,10 +125,10 @@ public class WordServiceTests
     }
 
     [Test]
-    public async Task CreateWordAsync_ShouldSetCreatedAtTimestamp()
+    public async Task SaveWordAsync_ShouldSetCreatedAtTimestamp()
     {
         var before = DateTime.UtcNow;
-        var result = await _service.CreateWordAsync("蝶舞翠");
+        var result = await _service.SaveWordAsync("蝶舞翠");
         var after = DateTime.UtcNow;
 
         Assert.That(result.CreatedAt, Is.GreaterThanOrEqualTo(before));
@@ -136,9 +136,9 @@ public class WordServiceTests
     }
     
     [Test]
-    public async Task CreateWordAsync_ShouldSetDefaultValues()
+    public async Task SaveWordAsync_ShouldSetDefaultValues()
     {
-        var result = await _service.CreateWordAsync("黒猫");
+        var result = await _service.SaveWordAsync("黒猫");
 
         using (Assert.EnterMultipleScope())
         {
@@ -150,9 +150,9 @@ public class WordServiceTests
     }
 
     [Test]
-    public async Task CreateWordAsync_ShouldPersistToDatabase()
+    public async Task SaveWordAsync_ShouldPersistToDatabase()
     {
-        await _service.CreateWordAsync("虫");
+        await _service.SaveWordAsync("虫");
 
         using (Assert.EnterMultipleScope())
         {
@@ -162,11 +162,11 @@ public class WordServiceTests
     }
     
     [Test]
-    public async Task CreateWordAsync_ShouldCreateMultipleWords()
+    public async Task SaveWordAsync_ShouldCreateMultipleWords()
     {
-        await _service.CreateWordAsync("買う");
-        await _service.CreateWordAsync("買います");
-        await _service.CreateWordAsync("買った");
+        await _service.SaveWordAsync("買う");
+        await _service.SaveWordAsync("買います");
+        await _service.SaveWordAsync("買った");
 
         Assert.That(_context.Words.Count(w => w.Text.StartsWith("買")), Is.EqualTo(3));
     }

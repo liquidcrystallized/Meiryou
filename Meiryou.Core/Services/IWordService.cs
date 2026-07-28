@@ -20,5 +20,5 @@ public interface IWordService
     /// </summary>
     /// <param name="text">A string representation of a word.</param>
     /// <returns></returns>
-    Task<Word> CreateWordAsync(string text);
+    Task<Word> SaveWordAsync(string text);
 }

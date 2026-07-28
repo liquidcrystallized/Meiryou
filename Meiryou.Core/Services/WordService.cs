@@ -23,7 +23,7 @@ public class WordService : IWordService
             .ToListAsync();
     }
 
-    public async Task<Word> CreateWordAsync(string text)
+    public async Task<Word> SaveWordAsync(string text)
     {
         var word = new Word
         {
