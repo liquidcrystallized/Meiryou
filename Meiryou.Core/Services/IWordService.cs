@@ -16,9 +16,11 @@ public interface IWordService
     Task<IEnumerable<Word>> GetWordsByTextAsync(IEnumerable<string> texts);
     
     /// <summary>
-    /// "Add" a new word/word the user doesn't know to the database.
+    /// Updates a word if it already exists (Just the familiarity level).
+    /// Add the new word/word if it doesn't.
     /// </summary>
     /// <param name="text">A string representation of a word.</param>
+    /// <param name="familiarityLevel"> How familiar a user is with a word.</param>
     /// <returns></returns>
-    Task<Word> SaveWordAsync(string text);
+    Task<Word> SaveWordAsync(string text, WordFamiliarityLevel familiarityLevel = WordFamiliarityLevel.Unknown);
 }

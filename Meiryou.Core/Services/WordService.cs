@@ -23,16 +23,28 @@ public class WordService : IWordService
             .ToListAsync();
     }
 
-    public async Task<Word> SaveWordAsync(string text)
+    public async Task<Word> SaveWordAsync(string text, WordFamiliarityLevel familiarityLevel = WordFamiliarityLevel.Unknown)
     {
-        var word = new Word
+        var word = await _context.Words.FirstOrDefaultAsync(w => w.Text == text);
+
+        if (word != null)
         {
-            Text = text,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt =  DateTime.UtcNow
-        };
+            word.FamiliarityLevel = familiarityLevel;
+            word.UpdatedAt = DateTime.UtcNow;
+        }
+        else
+        {
+            word = new Word
+            {
+                Text = text,
+                FamiliarityLevel = familiarityLevel,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            _context.Words.Add(word);
+        }
         
-        _context.Words.Add(word);
         await _context.SaveChangesAsync();
         
         return word;
