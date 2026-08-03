@@ -94,6 +94,38 @@ public class ReaderScreenViewModelTests
         _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
         Assert.That(_viewModel.IsPopupVisible, Is.False);
     }
+
+    [Test]
+    public void SelectWordCommand_SetsRadioFamiliarityLevel()
+    {
+        var testContent = CreateTestContent(LanguageType.Japanese, "空に消える");
+
+        _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
+        _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
+        
+        var knownWord = new Word { Text = "空", FamiliarityLevel = WordFamiliarityLevel.Known };
+        var wellKnownWord = new Word { Text = "消える", FamiliarityLevel = WordFamiliarityLevel.WellKnown };
+        
+        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
+            .Returns(Task.FromResult<IEnumerable<Word>>([knownWord, wellKnownWord]));
+        _mockWordService.SaveWordAsync(Arg.Any<string>(), Arg.Any<WordFamiliarityLevel>())
+            .Returns(call => Task.FromResult(new Word { Text = call.Arg<string>(), FamiliarityLevel = call.Arg<WordFamiliarityLevel>() }));
+
+        var loadContentTask = _viewModel.LoadContent(testContent);
+        loadContentTask.Wait();
+        
+        var firstWord = _viewModel.Words.FirstOrDefault(w => w is { IsSpace: false, Word.Text: "空" });
+        Assert.That(firstWord, Is.Not.Null);
+        
+        _viewModel.SelectedWordCommand.Execute(firstWord).Subscribe();
+        
+        using (Assert.EnterMultipleScope())
+        {
+            Assert.That(_viewModel.SelectedWord, Is.EqualTo(firstWord));
+            Assert.That(_viewModel.SelectedFamiliarityLevel, Is.EqualTo(WordFamiliarityLevel.Known));
+            Assert.That(_viewModel.IsPopupVisible, Is.True);
+        }
+    }
     
     [Test]
     public void ClosePopupCommand_ClosesPopupAndClearsSelectedWord()

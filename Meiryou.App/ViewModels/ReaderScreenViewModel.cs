@@ -32,6 +32,12 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref field, value);
     }
 
+    public WordFamiliarityLevel SelectedFamiliarityLevel
+    {
+        get;
+        set => this.RaiseAndSetIfChanged(ref field, value);
+    }
+
     public WordEntry? SelectedWord
     {
         get;
@@ -147,5 +153,6 @@ public class ReaderScreenViewModel : ReactiveObject, IRoutableViewModel
         }
 
         SelectedWord = word;
+        SelectedFamiliarityLevel = word?.Word.FamiliarityLevel ?? WordFamiliarityLevel.Unknown;
     }
 }

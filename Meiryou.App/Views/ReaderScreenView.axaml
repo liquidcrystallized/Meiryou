@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Meiryou.ViewModels"
+             xmlns:models="clr-namespace:Meiryou.Core.Models;assembly=Meiryou.Core"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="800"
              x:CompileBindings="True"
              x:Class="Meiryou.Views.ReaderScreenView"
@@ -43,7 +44,10 @@
                    <RadioButton Grid.Column="0" 
                                 GroupName="Familiarity Level Group" 
                                 Content="New" 
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                IsChecked="{Binding SelectedFamiliarityLevel,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:WordFamiliarityLevel.New}}"/>
                    <RadioButton Grid.Column="1" 
                                 GroupName="Familiarity Level Group" 
                                 Content="Learning" 
@@ -51,15 +55,24 @@
                    <RadioButton Grid.Column="2" 
                                 GroupName="Familiarity Level Group" 
                                 Content="Familiar" 
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                IsChecked="{Binding SelectedFamiliarityLevel,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:WordFamiliarityLevel.Familiar}}"/>
                    <RadioButton Grid.Column="3" 
                                 GroupName="Familiarity Level Group" 
                                 Content="Known" 
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                IsChecked="{Binding SelectedFamiliarityLevel,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:WordFamiliarityLevel.Known}}"/>
                    <RadioButton Grid.Column="4" 
                                 GroupName="Familiarity Level Group" 
                                 Content="Well Known" 
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Center"
+                                IsChecked="{Binding SelectedFamiliarityLevel,
+                                Converter={StaticResource EnumToBoolConverter},
+                                ConverterParameter={x:Static models:WordFamiliarityLevel.WellKnown}}"/>
                </Grid>
                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                    <TextBlock FontSize="18" FontWeight="Bold"
