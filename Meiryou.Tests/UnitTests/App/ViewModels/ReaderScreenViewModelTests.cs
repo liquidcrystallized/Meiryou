@@ -42,8 +42,6 @@ public class ReaderScreenViewModelTests
 
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
-            .Returns(Task.FromResult<IEnumerable<Word>>([]));
         _mockWordService.SaveWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
         _mockWordService.SaveWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
         _mockWordService.SaveWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
@@ -70,8 +68,6 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
-            .Returns(Task.FromResult<IEnumerable<Word>>([]));
         _mockWordService.SaveWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
         _mockWordService.SaveWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
         _mockWordService.SaveWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
@@ -105,11 +101,12 @@ public class ReaderScreenViewModelTests
         
         var knownWord = new Word { Text = "空", FamiliarityLevel = WordFamiliarityLevel.Known };
         var wellKnownWord = new Word { Text = "消える", FamiliarityLevel = WordFamiliarityLevel.WellKnown };
-        
+
         _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
             .Returns(Task.FromResult<IEnumerable<Word>>([knownWord, wellKnownWord]));
-        _mockWordService.SaveWordAsync(Arg.Any<string>(), Arg.Any<WordFamiliarityLevel>())
-            .Returns(call => Task.FromResult(new Word { Text = call.Arg<string>(), FamiliarityLevel = call.Arg<WordFamiliarityLevel>() }));
+        
+        _mockWordService.SaveWordAsync("空")
+            .Returns(Task.FromResult(new Word { Text = "空", FamiliarityLevel = WordFamiliarityLevel.Known }));
 
         var loadContentTask = _viewModel.LoadContent(testContent);
         loadContentTask.Wait();
@@ -134,8 +131,6 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
-            .Returns(Task.FromResult<IEnumerable<Word>>([]));
         _mockWordService.SaveWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
         _mockWordService.SaveWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
         _mockWordService.SaveWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
@@ -170,8 +165,6 @@ public class ReaderScreenViewModelTests
         
         _mockTextParsingServiceFactory.GetService(LanguageType.Japanese).Returns(_mockTextParsingService);
         _mockTextParsingService.SegmentTextIntoWords(testContent.Content).Returns(["空", "に", "消える"]);
-        _mockWordService.GetWordsByTextAsync(Arg.Any<IEnumerable<string>>())
-            .Returns(Task.FromResult<IEnumerable<Word>>([]));
         _mockWordService.SaveWordAsync("空").Returns(Task.FromResult(new Word { Text = "空" }));
         _mockWordService.SaveWordAsync("に").Returns(Task.FromResult(new Word { Text = "に" }));
         _mockWordService.SaveWordAsync("消える").Returns(Task.FromResult(new Word { Text = "消える" }));
