@@ -1,6 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:Meiryou.Converters"
+             xmlns:customConverters="clr-namespace:Meiryou.Converters"
              xmlns:avaloniaConverters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
              x:Class="Meiryou.App"
              RequestedThemeVariant="Default">
@@ -11,7 +11,7 @@
              
     <Application.Resources>
         <ResourceDictionary>
-            <converters:FamiliarityToGradientBrushConverter x:Key="FamiliarityToGradientBrushConverter"/>
+            <customConverters:FamiliarityToGradientBrushConverter x:Key="FamiliarityToGradientBrushConverter"/>
             <avaloniaConverters:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
         </ResourceDictionary>
     </Application.Resources>
